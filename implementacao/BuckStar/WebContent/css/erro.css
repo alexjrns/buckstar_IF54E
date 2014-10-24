@@ -1,0 +1,67 @@
+div.box {
+	position: absolute;
+	border: 1px solid #C0C4C0;
+	min-width: 450px;
+	min-height: 385px;
+	left: 15%;
+	top: 15%;
+	padding-left: 400px;
+	padding-right: 30px;
+	text-align: left;
+	background-color: #FFF;
+	background-image: url(../img/css/404.jpg);
+	background-repeat: no-repeat;
+	background-position: -90px 0px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,h2 {
+	font-weight: normal !important;
+	display: block !important;
+	margin-bottom: 30px !important;
+}
+
+h1 {
+	font-size: 25px !important;
+	font-weight: bold !important;
+}
+
+h2 {
+	font-size: 20px !important;
+	font-weight: normal !important;
+}
+
+h3 {
+	font-size: 15px !important;
+	font-weight: normal !important;
+}
+
+img {
+	display: block;
+	margin-top: 35px;
+	margin-bottom: 20px;
+	height: 56px;
+}
+
+a, a:visited {
+	color: #2CB0FF;
+}
+
+p {
+	font-size: 125%;
+	margin-top: 12px;
+}
+
+p.inner-box {
+	background: #EEF7F8;
+	padding: 12px 8px 12px 8px;
+}
+
+p.error {
+	margin-top: 24px;
+	margin-left: 8px;
+}

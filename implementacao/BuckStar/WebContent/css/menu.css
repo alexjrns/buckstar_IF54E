@@ -1,0 +1,182 @@
+/* Parte do menu */
+body {
+  padding-top: 70px;
+}
+
+body.principal{
+  background: url('../img/login-crystal-bg.jpeg') no-repeat scroll center top transparent !important;
+}
+
+.pesquisar{
+	background: none;
+}
+.table-conteiner{
+	border:1px solid #aaa;
+	border-radius:10px;
+	box-shadow:0 0 10px #aaa;
+	margin:15px auto 0;
+	padding:20px;
+	width:95%;		
+}
+
+.btn-danger-mn{
+  background: #666666;
+  border-color: #666666;
+  text-decoration:none;
+  color: #fff;
+  outline:none; 
+  border:none
+}
+
+.btn-danger-mn:hover{
+  background: #777777;
+  border-color: #777777;
+  text-decoration:none;
+  color: #fff;
+}
+
+.btn-danger-mn:active{
+   background: #666;
+   text-decoration:none;
+   color: #fff;
+}
+
+.btn-danger-mn:focus{
+   background: #666;
+   text-decoration:none;
+   color: #fff;
+}
+
+.btn-danger-mn:visited{
+   background: #666;
+   text-decoration:none;
+   color: #fff;
+}
+
+.img-menu{
+	background-image:url(../img/css/fundo_menu_des.png);
+	background-repeat: no-repeat;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.img-menu:hover{
+	background-image:url(../img/css/fundo_menu.png);
+}
+
+.img-int{
+	width: 128px;
+	height: 50px;
+}
+/* Parte do login */
+.form-login {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  border-radius:10px;  
+  box-shadow:0 0 15px #aaa;  
+}
+
+.form-login .form-signin-heading,
+.form-login .checkbox {
+  margin-bottom: 10px;
+}
+
+.form-login .checkbox {
+  font-weight: normal;
+}
+
+.form-login .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-login .form-control:focus {
+  z-index: 2;
+}
+
+.form-login input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-login input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-login input[type="text"]:hover, input[type="password"]:hover{
+	transition: border-color 0.3s ease 0s;
+}
+
+input[type=checkbox].css-checkbox {
+	display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+	padding-left:25px;
+	height:21px; 
+	display:inline-block;
+	line-height:21px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:11px;
+	vertical-align:middle;
+	cursor:pointer;
+	margin-bottom: 10px;
+
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+	background-position: 0 -21px;
+}
+
+label.css-label {
+	background-image:url(../img/css/check.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+img.img_login{ 
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto; 
+	margin-top: 10px;
+	margin-bottom: 60px;
+}
+
+.salvar{
+  	transition: background-color 0.5s ease 0s;
+}
+
+.centro{
+	text-align: center;
+	margin: auto;
+}
+.oculto{
+	display: none;	
+}
+
+div.msg_erro{
+	max-width: 400px;	
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto; 
+}
+.btn-fechar{
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto; 
+	margin-top: 10px;
+}
