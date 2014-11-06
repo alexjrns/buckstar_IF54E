@@ -87,7 +87,7 @@ public class FornecedorController extends HttpServlet {
 		if((codigo != null) && (codigo != "0") && (codigo != ""))
 			cod = Integer.parseInt(codigo);
 
-		Fornecedor rep = new Fornecedor(cod, razao, cnpj, fantasia, inscricao, logradouro, numero, complemento, cep, cidade, estado, telefone, email, site, dataCadastro, desativado);
+		Fornecedor rep = new Fornecedor(0, cod, razao, cnpj, fantasia, inscricao, logradouro, numero, complemento, cep, cidade, estado, telefone, email, site, dataCadastro, desativado);
 		FornecedorDAO repDAO = new FornecedorDAO();
 		repDAO.salvar(rep);
 		response.sendRedirect("forncontroller.do?acao=lst");

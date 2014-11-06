@@ -27,13 +27,7 @@
 							<label for="txtlogin">Login*</label>
 							<input type="text" name="txtlogin" id="txtlogin" value="${requestScope.usuario.login}" placeholder="Login para conexão" required="required" />
 							<label for= "txtsenha">Senha*</label>
-							
-							<%String senhaCrip = ""; %>
-								<c:set var="senha" value="${requestScope.usuario.senha}" />
-								<c:forEach begin="1" end="${fn:length(senha)}">
-									<%senhaCrip += "*";%>
-								</c:forEach>
-							<input type="password" name="txtsenha" id="txtsenha" value="<%= senhaCrip %>" maxlength="12" size="20" placeholder="Senha de 6 a 8 caracteres" required="required" />
+							<input type="password" name="txtsenha" id="txtsenha" value="" maxlength="12" size="20" placeholder="Senha de 6 a 8 caracteres" required="required" />
 						</fieldset>						
 					<label class="tt">* Campos obrigatórios</label>					
 					<div class="salvar">					

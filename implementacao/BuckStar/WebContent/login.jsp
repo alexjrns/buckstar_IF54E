@@ -8,6 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="css/menu.css">
 	<script src="javascript/jquery.min.js"> </script>
 	<script src="javascript/bootstrap.js"></script>
+	<link rel="icon" href="img/favicon/fav_16.png" sizes="16x16">
+	<link rel="icon" href="img/favicon/fav_32.png" sizes="32x32">
+	<link rel="icon" href="img/favicon/fav_48.png" sizes="48x48">	
 </head>
 <body class="principal">
 	

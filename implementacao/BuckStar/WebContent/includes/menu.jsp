@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<link rel="icon" href="img/favicon/fav_16.png" sizes="16x16">
+<link rel="icon" href="img/favicon/fav_32.png" sizes="32x32">
+<link rel="icon" href="img/favicon/fav_48.png" sizes="48x48">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
 <link rel="stylesheet" href="css/menu.css" type="text/css"/>
 
@@ -41,15 +44,8 @@
                 <li class="divider"></li>
               	
               	<li class="dropdown-header">Produtos</li>
-				<li><a href="vencontroller.do?acao=cad">Cadastrar</a></li>
-				<li><a href="vencontroller.do?acao=lst">Listar</a></li>
-
-                <li class="divider"></li>
-                
-                <li class="dropdown-header">Clientes</li>
-				<li><a href="pages/index.jsp">Cadastrar</a></li>
-				<li><a href="clicontroller.do?acao=lst">Listar</a></li>
-
+				<li><a href="prodcontroller.do?acao=cad">Cadastrar</a></li>
+				<li><a href="prodcontroller.do?acao=lst">Listar</a></li>
               </ul>
             </li>
 

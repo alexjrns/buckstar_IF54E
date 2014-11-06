@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import com.myhomeinfo.entidades.Produto;
 import com.myhomeinfo.entidades.Vendedor;
 
 public class UsuarioComumDAO{
@@ -60,7 +62,15 @@ public class UsuarioComumDAO{
 		for(int i = 0; i < campos.length; i++){
 			sql += campos[i][0];
 			sql += " = ";
-			sql += "'" + campos[i][1] + "'";
+			/*if(campos[i][1].contains("md5(")){
+				String vlr;
+				vlr = campos[i][1].substring(4);
+				vlr = vlr.substring(0, (vlr.length()-1));
+				vlr = "md5('" + vlr;
+				vlr += "')";
+				sql += vlr;
+			}else*/
+				sql += "'" + campos[i][1] + "'";
 			if(i != (campos.length -1))
 				sql += ", ";
 		}
@@ -162,108 +172,92 @@ public class UsuarioComumDAO{
 		}
 		return ven;	
 	}
-/*
-	public List<Cliente> buscarTodosClientes(){
-		String sql = "SELECT cliente.id_cliente, cliente.cod_cliente, cliente.des_razaosocial, cliente.des_nomefantasia, cliente.val_cnpj, cliente.val_inscricaoestadual, cliente.dat_datadecadastro, cliente.opt_clientedesativado, cliente.opt_clientemanutencao, cliente.end_logradouro, cliente.end_numero, cliente.end_complemento, cliente.end_bairro,   cliente.end_cep,  cliente.end_cidade, cliente.end_uf, cliente.des_contato, cliente.val_fone, cliente.val_email, cliente.fk_vendedor, cliente.fk_representante FROM cliente;";
-		List<Cliente> lista = new ArrayList<Cliente>();
+	
+	public Produto buscarProduto(int id){
+		String sql = "SELECT produto.id_produto, produto.cod_produto, produto.des_nome, produto.des_marca, produto.dat_ultimacompra, produto.des_unidadecompra, produto.des_unidadetransmissao, produto.des_descricaouso, produto.val_quantidadeatual, produto.val_quantidaderecomendada, produto.val_quantidademinima, produto.val_codigobarras, produto.val_valormediocompra, produto.opt_desativado, produto.fk_ultimofornecedor FROM produto WHERE (produto.cod_produto = '" + id + "');";	
+		Produto prod = new Produto();
+		
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			ResultSet resultado = preparador.executeQuery();
+			resultado.next();
+			prod.setCodigo(resultado.getInt("cod_produto"));
+			prod.setNome(resultado.getString("des_nome"));
+			
+			prod.setMarca(resultado.getString("des_marca"));
+			
+			java.sql.Date data = new java.sql.Date(resultado.getDate("dat_ultimacompra").getTime());
+			java.util.Date dtFinal = new java.util.Date(data.getTime()); 
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dtFinal);
+			prod.setDataUltimaCompra(cal);
+
+			prod.setUnidadeCompra(resultado.getString("des_unidadecompra"));
+			prod.setUnidadeTransmissao(resultado.getString("des_unidadetransmissao"));
+			prod.setDescricaoUso(resultado.getString("des_descricaouso"));
+			prod.setQuantidadeAtual(Double.parseDouble(resultado.getString("val_quantidadeatual")));
+			prod.setQuantidadeRecomendada(Double.parseDouble(resultado.getString("val_quantidaderecomendada")));
+			prod.setQuantidadeMinima(Double.parseDouble(resultado.getString("val_quantidademinima")));
+			prod.setCodigoBarras(resultado.getString("val_codigobarras"));
+			prod.setValorMedioCompra(Double.parseDouble(resultado.getString("val_valormediocompra")));
+			
+			if(resultado.getString("opt_desativado").equals("Sim"))
+				prod.setDesativado(true);	
+			else if(resultado.getString("opt_desativado").equals("Nao"))
+				prod.setDesativado(false);
+			prod.setUltimoFornecedor(resultado.getInt("fk_ultimofornecedor"));
+
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}		
+		
+		return prod;
+	}
+	
+	public List<Produto> buscarTodosProdutos(){
+		String sql = "SELECT produto.id_produto, produto.cod_produto, produto.des_nome, produto.des_marca, produto.dat_ultimacompra, produto.des_unidadecompra, produto.des_unidadetransmissao, produto.des_descricaouso, produto.val_quantidadeatual, produto.val_quantidaderecomendada, produto.val_quantidademinima, produto.val_codigobarras, produto.val_valormediocompra, produto.opt_desativado, produto.fk_ultimofornecedor FROM public.produto;";
+		List<Produto> lista = new ArrayList<Produto>();
 		try {
 			PreparedStatement preparador = con.prepareStatement(sql);
 
 			ResultSet resultado = preparador.executeQuery();
 			while(resultado.next()){
-				Cliente cli = new Cliente();
-
-				cli.setCodigo(resultado.getInt("cod_cliente"));
-				cli.setRazaoSocial(resultado.getString("des_razaosocial"));
-				cli.setNomeFantasia(resultado.getString("des_nomefantasia"));
-				cli.setCnpj(resultado.getString("val_cnpj"));
-				cli.setInscricaoEstadual(resultado.getString("val_inscricaoestadual"));
-				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_datadecadastro").getTime());				
+				Produto prod = new Produto();
+				prod.setCodigo(resultado.getInt("cod_produto"));
+				prod.setNome(resultado.getString("des_nome"));
+				
+				prod.setMarca(resultado.getString("des_marca"));
+				
+				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_ultimacompra").getTime());
 				java.util.Date dtFinal = new java.util.Date(data.getTime()); 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(dtFinal);
-				cli.setDataCadastro(cal);
+				prod.setDataUltimaCompra(cal);
 
-				if(resultado.getString("opt_clientedesativado").equals("Sim"))
-					cli.setDesativado(true);
-				else if(resultado.getString("opt_clientedesativado").equals("Nao"))
-					cli.setDesativado(false);
+				prod.setUnidadeCompra(resultado.getString("des_unidadecompra"));
+				prod.setUnidadeTransmissao(resultado.getString("des_unidadetransmissao"));
+				prod.setDescricaoUso(resultado.getString("des_descricaouso"));
+				prod.setQuantidadeAtual(Double.parseDouble(resultado.getString("val_quantidadeatual")));
+				prod.setQuantidadeRecomendada(Double.parseDouble(resultado.getString("val_quantidaderecomendada")));
+				prod.setQuantidadeMinima(Double.parseDouble(resultado.getString("val_quantidademinima")));
+				prod.setCodigoBarras(resultado.getString("val_codigobarras"));
+				prod.setValorMedioCompra(Double.parseDouble(resultado.getString("val_valormediocompra")));
+				
+				if(resultado.getString("opt_desativado").equals("Sim"))
+					prod.setDesativado(true);	
+				else if(resultado.getString("opt_desativado").equals("Nao"))
+					prod.setDesativado(false);
+				prod.setUltimoFornecedor(resultado.getInt("fk_ultimofornecedor"));
 
-				if(resultado.getString("opt_clientemanutencao").equals("Sim"))
-					cli.setManutencao(true);
-				else if(resultado.getString("opt_clientemanutencao").equals("Nao"))
-					cli.setManutencao(false);
 
-				cli.setLogradouro(resultado.getString("end_logradouro"));
-				cli.setNumero(resultado.getString("end_numero"));
-				cli.setComplemento(resultado.getString("end_complemento"));
-				cli.setBairro(resultado.getString("end_bairro"));
-				cli.setCep(resultado.getString("end_cep"));
-				cli.setCidade(resultado.getString("end_cidade"));
-				cli.setEstado(resultado.getString("end_uf"));
-				cli.setContato(resultado.getString("des_contato"));
-				cli.setFone(resultado.getString("val_fone"));
-				cli.setEmail(resultado.getString("val_email"));
-				cli.setCdgRepresentante(resultado.getInt("fk_representante"));
-				cli.setCdgVendedor(resultado.getInt("fk_vendedor"));
-				lista.add(cli);
+				lista.add(prod);
 			}
 			preparador.close();
 		} catch (SQLException e) {
 			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
 		}
 		return lista;
-	}	
+	}
 	
-	public Cliente buscarCliente(int id){
-		String sql = "SELECT cliente.id_cliente, cliente.cod_cliente, cliente.des_razaosocial, cliente.des_nomefantasia, cliente.val_cnpj, cliente.val_inscricaoestadual, cliente.dat_datadecadastro, cliente.opt_clientedesativado, cliente.opt_clientemanutencao, cliente.end_logradouro, cliente.end_numero, cliente.end_complemento, cliente.end_bairro,   cliente.end_cep,  cliente.end_cidade, cliente.end_uf, cliente.des_contato, cliente.val_fone, cliente.val_email, cliente.fk_vendedor, cliente.fk_representante FROM cliente WHERE (cliente.cod_cliente = ?);";
-		Cliente cli = new Cliente();
-		try {
-			PreparedStatement preparador = con.prepareStatement(sql);
-			preparador.setInt(1, id);
-
-			ResultSet resultado = preparador.executeQuery();
-			resultado.next();
-
-			cli.setCodigo(resultado.getInt("cod_cliente"));
-			cli.setRazaoSocial(resultado.getString("des_razaosocial"));
-			cli.setNomeFantasia(resultado.getString("des_nomefantasia"));
-			cli.setCnpj(resultado.getString("val_cnpj"));
-			cli.setInscricaoEstadual(resultado.getString("val_inscricaoestadual"));
-			java.sql.Date data = new java.sql.Date(resultado.getDate("dat_datadecadastro").getTime());				
-			java.util.Date dtFinal = new java.util.Date(data.getTime()); 
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(dtFinal);
-			cli.setDataCadastro(cal);
-
-			if(resultado.getString("opt_clientedesativado").equals("Sim"))
-				cli.setDesativado(true);
-			else if(resultado.getString("opt_clientedesativado").equals("Nao"))
-				cli.setDesativado(false);
-
-			if(resultado.getString("opt_clientemanutencao").equals("Sim"))
-				cli.setManutencao(true);
-			else if(resultado.getString("opt_clientemanutencao").equals("Nao"))
-				cli.setManutencao(false);
-
-			cli.setLogradouro(resultado.getString("end_logradouro"));
-			cli.setNumero(resultado.getString("end_numero"));
-			cli.setComplemento(resultado.getString("end_complemento"));
-			cli.setBairro(resultado.getString("end_bairro"));
-			cli.setCep(resultado.getString("end_cep"));
-			cli.setCidade(resultado.getString("end_cidade"));
-			cli.setEstado(resultado.getString("end_uf"));
-			cli.setContato(resultado.getString("des_contato"));
-			cli.setFone(resultado.getString("val_fone"));
-			cli.setEmail(resultado.getString("val_email"));
-			cli.setCdgRepresentante(resultado.getInt("fk_representante"));
-			cli.setCdgVendedor(resultado.getInt("fk_vendedor"));
-
-			preparador.close();
-		} catch (SQLException e) {
-			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
-		}
-		return cli;
-	}	
-*/
 }

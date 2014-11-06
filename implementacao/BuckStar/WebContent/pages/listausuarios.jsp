@@ -37,8 +37,10 @@
 								<td>
 									<script>var cod = ${u.codigo}</script>
 									<a href="usucontroller.do?acao=edt&cdg=${u.codigo}"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span></button></a>
-									<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
-									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excAlert"><span class="glyphicon glyphicon-remove"></span></button> -->
+									<button type="button" class="btn btn-danger btn-sm" onClick="mostrarExc(${u.codigo})"><span class="glyphicon glyphicon-remove"></span></button>
+									
+									<div class="modal fade" id="excAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog">
 									    <div class="modal-content">
 									      <div class="modal-header">

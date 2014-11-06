@@ -6,7 +6,8 @@ import java.util.Calendar;
 public class Produto {
 	/* Atributos */
 	//Private	
-	private int id;
+	private int chave;
+	private int codigo;
 	private String nome;
 	private String marca;
 	private Calendar dataUltimaCompra;
@@ -33,7 +34,7 @@ public class Produto {
 			double quantidadeMinima, String codigoBarras,
 			double valorMedioCompra, boolean desativado, int ultimoFornecedor) {
 		super();
-		this.id = id;
+		this.codigo = id;
 		this.nome = nome;
 		this.marca = marca;
 		this.dataUltimaCompra = dataUltimaCompra;
@@ -48,7 +49,43 @@ public class Produto {
 		this.ultimoFornecedor = ultimoFornecedor;
 		this.desativado = desativado;
 	}
+	
+	public Produto(int codigo){
+		super();
+		this.codigo = codigo;
+		this.nome = "";
+		this.marca = "";
+		this.dataUltimaCompra = null;
+		this.unidadeCompra = "";
+		this.unidadeTransmissao = "";
+		this.descricaoUso = "";
+		this.quantidadeAtual = 0;
+		this.quantidadeRecomendada = 0;
+		this.quantidadeMinima = 0;
+		this.codigoBarras = "";
+		this.valorMedioCompra = 0;
+		this.ultimoFornecedor = 0;
+		this.desativado = false;
+	}
 
+	public Produto(int codigo, Calendar dtUltimaCompra){
+		super();
+		this.codigo = codigo;
+		this.nome = "";
+		this.marca = "";
+		this.dataUltimaCompra = dtUltimaCompra;
+		this.unidadeCompra = "";
+		this.unidadeTransmissao = "";
+		this.descricaoUso = "";
+		this.quantidadeAtual = 0;
+		this.quantidadeRecomendada = 0;
+		this.quantidadeMinima = 0;
+		this.codigoBarras = "";
+		this.valorMedioCompra = 0;
+		this.ultimoFornecedor = 0;
+		this.desativado = false;
+	}	
+	
 	public boolean isDesativado() {
 		return desativado;
 	}
@@ -57,12 +94,12 @@ public class Produto {
 		this.desativado = desativado;
 	}
 
-	public int getId() {
-		return id;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCodigo(int id) {
+		this.codigo = id;
 	}
 
 	public String getNome() {

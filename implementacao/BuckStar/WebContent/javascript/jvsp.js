@@ -16,3 +16,8 @@ function mostrar(){
 	$('#myLoad').modal('show');
 	setTimeout(function(){esconde()}, 3000);			
 }
+
+function mostrarExc(cod){
+	console.log("valor do código: " + cod);
+	$('#excAlert').modal('show');
+}

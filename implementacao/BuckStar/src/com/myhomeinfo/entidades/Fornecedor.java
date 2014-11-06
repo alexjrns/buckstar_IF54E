@@ -6,6 +6,7 @@ import java.util.Calendar;
 public class Fornecedor {
 	/* Atributos */
 	//Private
+	private int chave;
 	private int codigo;
 	private String razaoSocial;
 	private String CNPJ;
@@ -44,12 +45,13 @@ public class Fornecedor {
 		this.desativado = false;
 	}
 
-	public Fornecedor(int codigo, String razaoSocial, String cNPJ,
+	public Fornecedor(int chave, int codigo, String razaoSocial, String cNPJ,
 			String nomeFantasia, String inscricaoEstadual, String logradouro,
 			String numero, String complemento, String cEP, String cidade,
 			String estado, String telefone, String eMail, String site,
 			Calendar dataDeCadastro, boolean desativado) {
 		super();
+		this.chave = chave;
 		this.codigo = codigo;
 		this.razaoSocial = razaoSocial;
 		this.CNPJ = cNPJ;
@@ -109,6 +111,10 @@ public class Fornecedor {
 	}	
 
 	/* Gets */
+	public int getChave(){
+		return chave;
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -183,6 +189,10 @@ public class Fornecedor {
 	}
 
 	/* Sets */
+	public void setChave(int chave) {
+		this.chave = chave;
+	}
+	
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}

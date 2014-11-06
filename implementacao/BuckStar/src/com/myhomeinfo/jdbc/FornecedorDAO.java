@@ -106,6 +106,7 @@ public class FornecedorDAO {
 			ResultSet resultado = preparador.executeQuery();
 			while(resultado.next()){
 				Fornecedor forn = new Fornecedor();
+				forn.setChave(resultado.getInt("id_fornecedor"));
 				forn.setCodigo(resultado.getInt("cod_fornecedor"));
 				forn.setRazaoSocial(resultado.getString("des_razaosocial"));
 				forn.setCNPJ(resultado.getString("val_cnpj"));
@@ -150,7 +151,8 @@ public class FornecedorDAO {
 
 			ResultSet resultado = preparador.executeQuery();
 			resultado.next();
-
+			
+			forn.setChave(resultado.getInt("id_fornecedor"));
 			forn.setCodigo(resultado.getInt("cod_fornecedor"));
 			forn.setRazaoSocial(resultado.getString("des_razaosocial"));
 			forn.setCNPJ(resultado.getString("val_cnpj"));
@@ -193,6 +195,7 @@ public class FornecedorDAO {
 			ResultSet resultado = preparador.executeQuery();
 			while(resultado.next()){
 				Fornecedor forn = new Fornecedor();
+				forn.setChave(resultado.getInt("id_fornecedor"));
 				forn.setCodigo(resultado.getInt("cod_fornecedor"));
 				forn.setRazaoSocial(resultado.getString("des_razaosocial"));
 				forn.setCNPJ(resultado.getString("val_cnpj"));
