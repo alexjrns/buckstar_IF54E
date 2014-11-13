@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
+	<database id="01">
+		<driver>postgresql</driver>
+		<servidor>localhost</servidor>
+		<porta>5432</porta>
+		<banco>buckstar</banco>
+		<usuario>postgres</usuario>
+		<senha>alex</senha>
+	</database>
+	
+	<database id="02">
+		<driver>paranaue</driver>
+		<servidor>192.168.0.212</servidor>
+		<porta>80</porta>
+		<banco>apacurana</banco>
+		<usuario>jarlana</usuario>
+		<senha>segredo</senha>
+	</database>	
+	
+	<contato id="02">
+		<nome>João da Silva</nome>
+		<endereco>Rua Inventada, 12, Bairro Inventado, Inventada City</endereco>
+		<telefone>11 - 24569865</telefone>
+		<email>joao.silva@provedor.com.br</email>
+	</contato>
+</config>

@@ -52,7 +52,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentação <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-				<li><a href="#">Gerar entrada</a></li>
+				<li><a href="entcontroller.do?acao=cad">Gerar entrada</a></li>
 				<li><a href="#">Gerar saída</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Ajustar estoque</a></li>
@@ -120,7 +120,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <a href="http://www.google.com" target="_blank"><button type="button" class="btn btn-default" data-dismiss="modal">Visitar site</button></a>
-	        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button></a>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
 	      </div>
 	    </div>
 	  </div>

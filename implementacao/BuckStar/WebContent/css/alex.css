@@ -27,6 +27,29 @@ form{
 
 }*/
 
+div.produtos{
+	margin: 15px 0 15px 0;
+	border:1px solid #ccc;
+	border-radius: 4px;
+}
+
+div.itemprodutos{
+	display: block;
+}
+
+#txtprodutos{
+	max-width:35%;
+}
+
+.quantidade{
+	max-width:13%;
+}
+
+label.linha{
+	display: inline;
+	margin-left: 10px;
+}
+
 form.padrao{
 	display: block;
 	max-width:60%;
@@ -96,6 +119,7 @@ input[type=tel],
 input[type=email],
 input[type=datetime],
 input[type=url],
+input[type=number],
 textarea,
 select{
 	background-color: #FFF;
@@ -117,6 +141,7 @@ input[type=tel]:hover,
 input[type=email]:hover,
 input[type=datetime]:hover,
 input[type=url]:hover,
+input[type=number]:hover,
 textarea:hover,
 select:hover{
 	border-color: #66afe9;
@@ -129,6 +154,7 @@ input[type=tel]:focus,
 input[type=email]:focus,
 input[type=datetime]:focus,
 input[type=url]:focus,
+input[type=number]:focus,
 textarea:focus,
 select:focus{
 	outline:none; /* Pour enlever le contour jaune lorsque l'on sélectionne un input dans Chrome */
