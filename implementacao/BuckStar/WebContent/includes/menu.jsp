@@ -53,7 +53,10 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentação <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
 				<li><a href="entcontroller.do?acao=cad">Gerar entrada</a></li>
+				<li><a href="entcontroller.do?acao=lst">Histórico de entradas</a></li>
+				<li class="divider"></li>
 				<li><a href="#">Gerar saída</a></li>
+				<li><a href="#">Histórico de saídas</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Ajustar estoque</a></li>
               </ul>

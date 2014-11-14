@@ -13,48 +13,41 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public class Utilitario {
-	private String key = "4b4ca*1";	
-	
+	private static String key = "4b4ca*1";
+
     public Utilitario() {
 		super();
 	}
 
-	public String md5(String valor){  
-        try {     
+	public static String md5(String valor){
+        try {
         	valor += key;
         	MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(valor.getBytes());  
-            
-            return new BigInteger(1, digest.digest()).toString(16).trim();  
-        }catch(Exception e) {  
-            throw new RuntimeException("Erro ao calcular MD5 de " + valor, e);  
-        }     
+            digest.update(valor.getBytes());
+
+            return new BigInteger(1, digest.digest()).toString(16).trim();
+        }catch(Exception e) {
+            return Excecoes.erroString(e);
+        }
     }
 	
-	public String valorXML(String fileXML, String campo){
+	public static String valorXML(String fileXML, String campo){
 		try {
 			Element raiz = lerXML(fileXML).getDocumentElement();
 			return raiz.getElementsByTagName(campo).item(0).getFirstChild().getNodeValue();
 		} catch (ParserConfigurationException e) {
-			System.out.println("O parser não foi configurado corretamente.");
-			e.printStackTrace();
-			return "";
+			return Excecoes.erroString(e);
 		} catch (SAXException e) {
-			System.out.println("Problema ao fazer o parse do arquivo.");
-			e.printStackTrace();
-			return "";
+			return Excecoes.erroString(e);
 		} catch (IOException e) {
-			System.out.println("O arquivo não pode ser lido.");
-			e.printStackTrace();
-			return "";
+			return Excecoes.erroString(e);
 		}
 	}
 
-	private Document lerXML(String arquivoXML) throws ParserConfigurationException, SAXException, IOException{
+	private static Document lerXML(String arquivoXML) throws ParserConfigurationException, SAXException, IOException{
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(arquivoXML);
 		return doc;
 	}
-	
 }

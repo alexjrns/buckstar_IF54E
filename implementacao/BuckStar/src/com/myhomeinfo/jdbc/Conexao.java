@@ -24,15 +24,14 @@ public class Conexao {
 				System.out.println("Driver JDBC nao encontrado\n" + e.getMessage());
 			}
 
-			Utilitario utl = new Utilitario();
-			String localXML = "D:/git_hub/BuckStar_IF54E/implementacao/BuckStar/WebContent/META-INF/config/conf.xml";
-			driver = utl.valorXML(localXML, "driver");
-			servidor = utl.valorXML(localXML, "servidor");
-			porta = utl.valorXML(localXML, "porta");
-			banco = utl.valorXML(localXML, "banco");
+			String localXML = "D:/git_hub/BuckStar_IF54E/implementacao/BuckStar/WebContent/WEB-INF/config/conf.xml";
+			driver = Utilitario.valorXML(localXML, "driver");
+			servidor = Utilitario.valorXML(localXML, "servidor");
+			porta = Utilitario.valorXML(localXML, "porta");
+			banco = Utilitario.valorXML(localXML, "banco");
 			caminho = "jdbc:" + driver + "://" + servidor + ":" + porta + "/" + banco;
-			usuario = utl.valorXML(localXML, "usuario");
-			senha = utl.valorXML(localXML, "senha");
+			usuario = Utilitario.valorXML(localXML, "usuario");
+			senha = Utilitario.valorXML(localXML, "senha");
 
 			con = DriverManager.getConnection(caminho, usuario, senha);
 		} catch(SQLException e){

@@ -12,7 +12,7 @@ public class Entrada {
 	private Calendar horaEntrada;
 	private String numeroNF;
 	private Double valor;
-	private ProdutoEstoque[] produtos;
+	private ProdutoEntrada[] produtos;
 	private Fornecedor fornecedor;
 	private Usuario usuario;
 	
@@ -32,7 +32,7 @@ public class Entrada {
 	}
 
 	//Completo
-	public Entrada(int id, Calendar dataEntrada, Calendar horaEntrada, String numeroNF, Double valor, ProdutoEstoque[] produtos, Fornecedor fornecedor, Usuario usuario) {
+	public Entrada(int id, Calendar dataEntrada, Calendar horaEntrada, String numeroNF, Double valor, ProdutoEntrada[] produtos, Fornecedor fornecedor, Usuario usuario) {
 		super();
 		this.id = id;
 		this.dataEntrada = dataEntrada;
@@ -93,7 +93,7 @@ public class Entrada {
 		return valor;
 	}
 
-	public ProdutoEstoque[] getProdutos() {
+	public ProdutoEntrada[] getProdutos() {
 		return produtos;
 	}
 
@@ -144,7 +144,7 @@ public class Entrada {
 		this.valor = valor;
 	}
 
-	public void setProdutos(ProdutoEstoque[] produtos) {
+	public void setProdutos(ProdutoEntrada[] produtos) {
 		this.produtos = produtos;
 	}
 

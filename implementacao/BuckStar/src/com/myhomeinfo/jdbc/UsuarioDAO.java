@@ -30,8 +30,7 @@ public class UsuarioDAO {
 		String login = usuario.getLogin();
 		String senha =  usuario.getSenha();
 		
-		Utilitario utl = new Utilitario();
-		String[][] vet = { {"id_usuario", ""}, {"cod_usuario", ""}, {"des_nome", nome}, {"val_login", login} , {"val_senha", utl.md5(senha)} }; 
+		String[][] vet = { {"id_usuario", ""}, {"cod_usuario", ""}, {"des_nome", nome}, {"val_login", login} , {"val_senha", Utilitario.md5(senha)} }; 
 		UsuarioComumDAO dao = new UsuarioComumDAO();
 
 		return dao.cadastrar("usuario", vet);
@@ -58,8 +57,7 @@ public class UsuarioDAO {
 		String senha =  usuario.getSenha();
 		
 		//String[][] vet = { {"cod_usuario", codigo}, {"des_nome", nome}, {"val_login", login} , {"val_senha", ("md5(" + senha + ")")} };
-		Utilitario utl = new Utilitario();
-		String[][] vet = { {"cod_usuario", codigo}, {"des_nome", nome}, {"val_login", login} , {"val_senha", utl.md5(senha)} };
+		String[][] vet = { {"cod_usuario", codigo}, {"des_nome", nome}, {"val_login", login} , {"val_senha", Utilitario.md5(senha)} };
 		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		return usuDAO.alterar("usuario", vet);
 	}
@@ -145,9 +143,8 @@ public class UsuarioDAO {
 		try{
 			PreparedStatement preparador = con.prepareStatement(sql);
 			preparador.setString(1, usr.getLogin());
-			
-			Utilitario utl = new Utilitario();
-			String senha = utl.md5(usr.getSenha());
+
+			String senha = Utilitario.md5(usr.getSenha());
 			preparador.setString(2, senha);
 			ResultSet resultado = preparador.executeQuery();
 			return (resultado.next() ? true: false);

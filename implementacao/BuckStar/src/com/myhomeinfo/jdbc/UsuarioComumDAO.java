@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.myhomeinfo.entidades.Entrada;
+import com.myhomeinfo.entidades.Fornecedor;
 import com.myhomeinfo.entidades.Produto;
+import com.myhomeinfo.entidades.Usuario;
 
 public class UsuarioComumDAO{
 	private Connection con = Conexao.getConnection();
@@ -218,6 +221,43 @@ public class UsuarioComumDAO{
 
 
 				lista.add(prod);
+			}
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return lista;
+	}
+	
+	public List<Entrada> buscarTodosEntrada(){
+		String sql = "SELECT entrada.id_entrada, entrada.cod_entrada, entrada.dat_entrada, entrada.tim_entrada, entrada.val_numeronfe, entrada.val_precopago, entrada.fk_fornecedor, entrada.fk_usuario FROM entrada;";
+		List<Entrada> lista = new ArrayList<Entrada>();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+
+			ResultSet resultado = preparador.executeQuery();
+			while(resultado.next()){
+				Entrada ent = new Entrada();
+				//ent.setChave(resultado.getInt("id_fornecedor"));
+				ent.setId(resultado.getInt("cod_entrada"));
+				
+				java.sql.Date dataEntrada = new java.sql.Date(resultado.getDate("dat_entrada").getTime());
+				java.util.Date dtFinalEnt = new java.util.Date(dataEntrada.getTime()); 
+				Calendar calEnt = Calendar.getInstance();
+				calEnt.setTime(dtFinalEnt);
+				ent.setDataEntrada(calEnt);
+
+				java.sql.Date horaEntrada = new java.sql.Date(resultado.getDate("tim_entrada").getTime());
+				java.util.Date hrFinalEnt = new java.util.Date(horaEntrada.getTime()); 
+				Calendar calEntTim = Calendar.getInstance();
+				calEntTim.setTime(hrFinalEnt);
+				ent.setHoraEntrada(calEntTim);
+				ent.setNumeroNF(resultado.getString("val_numeronfe"));
+				ent.setValor(resultado.getDouble("val_precopago"));
+				ent.setFornecedor(new Fornecedor(resultado.getInt("fk_fornecedor")));
+				ent.setUsuario(new Usuario(resultado.getInt("fk_usuario")));
+
+				lista.add(ent);
 			}
 			preparador.close();
 		} catch (SQLException e) {

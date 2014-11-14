@@ -19,7 +19,7 @@
 		  </div>
 		  <div class="panel-body">
 			<div class="form-group">
-				<form action="usucontroller.do" method="post" class="padrao">
+				<form action="entcontroller.do" method="post" class="padrao">
 					<fieldset>
 						<label for="txtcodigo">Código</label>							
 						<input type="text" name="txtcodigo" id="txtcodigo" readonly="readonly" value="${requestScope.entrada.id}" required="required" />
@@ -37,21 +37,21 @@
 						<label for="txtfornecedor">Fornecedor</label>
 						<select id="txtfornecedor" name="txtfornecedor">
 							<c:forEach items="${requestScope.listaFor}" var="u">
-								<option value="${u.codigo}">${u.razaoSocial}</option>
+								<option value="${u.chave}">${u.razaoSocial}</option>
 							</c:forEach>
 						</select>
 						<div id="produtos" class="produtos">
 							<div id="item1" class="itemprodutos">
 								<label for="txtprodutos" class="linha">Produto</label>
 								<select id="txtprodutos" name="txtprodutos">
-									<c:forEach items="${requestScope.listaPro}" var="u">
-										<option value="${u.codigo}">${u.nome}</option>
+									<c:forEach items="${requestScope.listaPro}" var="p">
+										<option value="${p.codigo}">${p.nome}</option>
 									</c:forEach>
 								</select>
 								<label for="quantidade" class="linha">Quantidade</label>
 								<input type="number" name="quantidade" id="quantidade" class="quantidade" min="1" max="9999" />
 								<label for="valor" class="linha">Valor</label>
-								<input type="text" name="valor" id="valor" class="quantidade" />
+								<input type="text" name="valor" id="valor" class="quantidade" value="" />
 								<button type="button" class="btn btn-primary" onclick="adicionaProduto(this);">+</button>							
 							</div>
 						</div>

@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class Produto {
 	/* Atributos */
 	//Private	
-	private int chave;
+	//private int chave;
 	private int codigo;
 	private String nome;
 	private String marca;

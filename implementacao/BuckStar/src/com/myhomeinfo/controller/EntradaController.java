@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.myhomeinfo.entidades.Entrada;
 import com.myhomeinfo.entidades.Fornecedor;
 import com.myhomeinfo.entidades.Produto;
+import com.myhomeinfo.entidades.ProdutoEntrada;
+import com.myhomeinfo.entidades.Usuario;
 import com.myhomeinfo.jdbc.EntradaDAO;
 import com.myhomeinfo.jdbc.FornecedorDAO;
 import com.myhomeinfo.jdbc.UsuarioComumDAO;
@@ -56,9 +58,9 @@ public class EntradaController extends HttpServlet {
 			RequestDispatcher saida = request.getRequestDispatcher("pages/frmentrada.jsp");
 			saida.forward(request, response);
 		}else if((acao != null) && (acao.equals("lst"))){
-			//List<Fornecedor> lst = entDAO.buscarTodos();
-			//request.setAttribute("lista", lst);
-			RequestDispatcher saida = request.getRequestDispatcher("pages/listafornecedores.jsp");
+			List<Entrada> lst = entDAO.buscarTodos();
+			request.setAttribute("lista", lst);
+			RequestDispatcher saida = request.getRequestDispatcher("pages/listaentradas.jsp");
 			saida.forward(request, response); 
 		}
 	}
@@ -66,42 +68,61 @@ public class EntradaController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String codigo = request.getParameter("txtcodigo");
-		String razao = request.getParameter("txtrazao");
-		String cnpj = request.getParameter("txtcnpj");
-		String fantasia = request.getParameter("txtfantasia");
-		String inscricao = request.getParameter("txtinscricao");
-		String logradouro = request.getParameter("txtlogradouro");
-		String numero = request.getParameter("txtnumero");
-		String complemento = request.getParameter("txtcomplemento");			
-		String cep = request.getParameter("txtcep");
-		cep = cep.replace("-", "");
-		String cidade = request.getParameter("txtcidade");			
-		String estado = request.getParameter("txtestado");
-		String telefone = request.getParameter("txttelefone");
-		String email = request.getParameter("txtemail");
-		String site = request.getParameter("txtsite");
-		String dtCadastro = request.getParameter("txtdatacadastro");
-		String dst = request.getParameter("cbbdesativado");
+		String dtEntrada = request.getParameter("txtdataentrada");
+		String hrEntrada = request.getParameter("txthoraentrada");
+		String numeroNF = request.getParameter("txtnota");
+		String vlNF = request.getParameter("txtvalor");
+		vlNF = vlNF.replace(",", ".");
+		Double valorNF = Double.parseDouble(vlNF);
+		String codFornecedor = request.getParameter("txtfornecedor");
+		String cdgProd = request.getParameter("txtprodutos");
 		
-		boolean desativado = false;
-		if((dst != null) && (dst.equals("Sim")))
-			desativado = true;	
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar dataCadastro = Calendar.getInstance();
+		Calendar dataEntrada = Calendar.getInstance();
 		try{
-			dataCadastro.setTime(sdf.parse(dtCadastro));
+			dataEntrada.setTime(sdf.parse(dtEntrada));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		Calendar horaEntrada = Calendar.getInstance();
+		try{
+			horaEntrada.setTime(shf.parse(hrEntrada));
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
+		
 		int cod = 0;
 		if((codigo != null) && (codigo != "0") && (codigo != ""))
 			cod = Integer.parseInt(codigo);
 
-		//Entrada ent = new Entrada(codigo, razao, cnpj, fantasia, inscricao, logradouro, numero, complemento, cep, cidade, estado, telefone, email, site, dataCadastro, desativado);
-		EntradaDAO entDAO = new EntradaDAO();
-		//entDAO.salvar(ent);
-		response.sendRedirect("entcontroller.do?acao=lst");		
-		
-	}
+		int codProduto = 0;
+		if((cdgProd != null) && (cdgProd != "0") && (cdgProd != ""))
+			codProduto = Integer.parseInt(cdgProd);
 
+		Entrada entrada = new Entrada(Integer.parseInt(codigo));
+		Produto prd = new Produto(codProduto);
+		Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
+		Double valor = Double.parseDouble(request.getParameter("valor"));
+		
+		ProdutoEntrada prodEntrada = new ProdutoEntrada(cod, entrada, prd, quantidade, valor);
+		prodEntrada.setProd(prd);
+		prodEntrada.setEntrada(entrada);
+		ProdutoEntrada[] prods = new ProdutoEntrada[1];
+		prods[0] = prodEntrada;
+		
+		Usuario usr = new Usuario(1);
+		
+		int codForn = 0;
+		if((codFornecedor != null) && (codFornecedor != "0") && (codFornecedor != ""))
+			codForn = Integer.parseInt(codFornecedor);		
+
+		FornecedorDAO frnDAO = new FornecedorDAO();
+		Fornecedor frnd = frnDAO.buscar(codForn);
+		Entrada ent = new Entrada(codForn, dataEntrada, horaEntrada, numeroNF, valorNF, prods, frnd, usr);
+		EntradaDAO entDAO = new EntradaDAO();
+		entDAO.salvar(ent);
+		response.sendRedirect("entcontroller.do?acao=lst");
+	}
 }
