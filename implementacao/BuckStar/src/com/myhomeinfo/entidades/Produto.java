@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class Produto {
 	/* Atributos */
 	//Private	
-	//private int chave;
+	private int chave;
 	private int codigo;
 	private String nome;
 	private String marca;
@@ -27,13 +27,14 @@ public class Produto {
 		super();
 	}
 
-	public Produto(int id, String nome, String marca,
+	public Produto(int chave, int id, String nome, String marca,
 			Calendar dataUltimaCompra, String unidadeCompra,
 			String unidadeTransmissao, String descricaoUso,
 			double quantidadeAtual, double quantidadeRecomendada,
 			double quantidadeMinima, String codigoBarras,
 			double valorMedioCompra, boolean desativado, int ultimoFornecedor) {
 		super();
+		this.chave = chave;
 		this.codigo = id;
 		this.nome = nome;
 		this.marca = marca;
@@ -52,6 +53,7 @@ public class Produto {
 	
 	public Produto(int codigo){
 		super();
+		this.chave = 0;
 		this.codigo = codigo;
 		this.nome = "";
 		this.marca = "";
@@ -70,6 +72,7 @@ public class Produto {
 
 	public Produto(int codigo, Calendar dtUltimaCompra){
 		super();
+		this.chave = 0;
 		this.codigo = codigo;
 		this.nome = "";
 		this.marca = "";
@@ -94,6 +97,10 @@ public class Produto {
 		this.desativado = desativado;
 	}
 
+	public int getChave() {
+		return chave;
+	}	
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -146,6 +153,10 @@ public class Produto {
 		return descricaoUso;
 	}
 
+	public void setChave(int chave) {
+		this.chave = chave;
+	}	
+	
 	public void setDescricaoUso(String descricaoUso) {
 		this.descricaoUso = descricaoUso;
 	}

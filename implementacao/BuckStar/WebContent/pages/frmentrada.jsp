@@ -7,7 +7,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Entrada de produtos</title>
 	<link rel="stylesheet" type="text/css" href="css/alex.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>	
 	<script type="text/javascript" src="javascript/jvsp.js"></script>
+	<script>
+		$(function(){
+			$('#txtfornecedor').find('[value="' + '${requestScope.entrada.getFornecedor().chave}' + '"]').attr('selected', true);
+			console.log('${requestScope.entrada.fornecedor.getCodigo()}');
+			console.log('${requestScope.entrada.fornecedor.chave}');
+			console.log('${requestScope.entrada.fornecedor.razaoSocial}');
+		});
+	</script>	
 </head>
 <body>
 	<c:import url="../includes/menu.jsp"></c:import>
@@ -26,7 +35,7 @@
 						<label for="txtdataentrada">Data da entrada*</label>
 						<input type="datetime" name="txtdataentrada" id="txtdataentrada" value="${requestScope.entrada.getDataEntradaFormatada()}"  data-mask="##/##/####" />
 						<label for="txthoraentrada">Hora da entrada*</label>
-						<input type="datetime" name="txthoraentrada" id="txthoraentrada" value="${requestScope.entrada.getHoraEntradaFormatada()}"  data-mask="##:##" />
+						<input type="text" name="txthoraentrada" id="txthoraentrada" value="${requestScope.entrada.getHoraEntradaFormatada()}"  data-mask="##:##" />
 						<label for="txtnota">Número da nota fiscal*</label>
 						<input type="text" name="txtnota" id="txtnota" value="${requestScope.entrada.numeroNF}" required="required" />
 						<label for="txtvalor">Valor da nota fiscal</label>
@@ -36,7 +45,7 @@
 						</div>
 						<label for="txtfornecedor">Fornecedor</label>
 						<select id="txtfornecedor" name="txtfornecedor">
-							<c:forEach items="${requestScope.listaFor}" var="u">
+								<c:forEach items="${requestScope.listaFor}" var="u">
 								<option value="${u.chave}">${u.razaoSocial}</option>
 							</c:forEach>
 						</select>
@@ -45,7 +54,7 @@
 								<label for="txtprodutos" class="linha">Produto</label>
 								<select id="txtprodutos" name="txtprodutos">
 									<c:forEach items="${requestScope.listaPro}" var="p">
-										<option value="${p.codigo}">${p.nome}</option>
+										<option value="${p.chave}">${p.nome}</option>
 									</c:forEach>
 								</select>
 								<label for="quantidade" class="linha">Quantidade</label>

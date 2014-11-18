@@ -115,12 +115,12 @@ public class Entrada {
 	}
 	
 	public String getHoraEntradaFormatada(){
-		String sr = "";
+		String str = "";
 		if(horaEntrada != null){
-			SimpleDateFormat s = new SimpleDateFormat("HH:mm");  
-			sr = s.format(horaEntrada.getTime());
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			str = sdf.format(horaEntrada.getTime());
 		}
-        return sr;
+        return str;
 	}
 	
 	/* SETs */	

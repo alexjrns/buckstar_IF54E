@@ -33,6 +33,7 @@ public class EntradaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
 		
+		UsuarioComumDAO usu = new UsuarioComumDAO();
 		EntradaDAO entDAO = new EntradaDAO();
 		if((acao != null) && (acao.equals("exc"))){
 			int codigo = Integer.parseInt(request.getParameter("cdg"));
@@ -40,13 +41,17 @@ public class EntradaController extends HttpServlet {
 			//entDAO.remover(ent);	
 			response.sendRedirect("entcontroller.do?acao=lst");
 		}else if((acao != null) && (acao.equals("edt"))){
+			List<Produto> prods = usu.buscarTodosProdutos();
+			request.setAttribute("listaPro", prods);			
+			FornecedorDAO forDao = new FornecedorDAO();
+			List<Fornecedor> forn = forDao.buscarTodos();
+			request.setAttribute("listaFor", forn);			
 			int codigo = Integer.parseInt(request.getParameter("cdg"));
-			//Entrada ent = entDAO.buscar(codigo);
-			//request.setAttribute("fornecedor", ent);
+			Entrada ent = entDAO.buscar(codigo);
+			request.setAttribute("entrada", ent);
 			RequestDispatcher saida = request.getRequestDispatcher("pages/frmentrada.jsp");
 			saida.forward(request, response);
 		}else if((acao != null) && (acao.equals("cad"))){
-			UsuarioComumDAO usu = new UsuarioComumDAO();
 			List<Produto> prods = usu.buscarTodosProdutos();
 			request.setAttribute("listaPro", prods);			
 			FornecedorDAO forDao = new FornecedorDAO();
@@ -67,7 +72,7 @@ public class EntradaController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String codigo = request.getParameter("txtcodigo");
+		String  codigo = request.getParameter("txtcodigo");
 		String dtEntrada = request.getParameter("txtdataentrada");
 		String hrEntrada = request.getParameter("txthoraentrada");
 		String numeroNF = request.getParameter("txtnota");
@@ -106,7 +111,7 @@ public class EntradaController extends HttpServlet {
 		Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
 		Double valor = Double.parseDouble(request.getParameter("valor"));
 		
-		ProdutoEntrada prodEntrada = new ProdutoEntrada(cod, entrada, prd, quantidade, valor);
+		ProdutoEntrada prodEntrada = new ProdutoEntrada(codProduto, entrada, prd, quantidade, valor);
 		prodEntrada.setProd(prd);
 		prodEntrada.setEntrada(entrada);
 		ProdutoEntrada[] prods = new ProdutoEntrada[1];
@@ -120,7 +125,7 @@ public class EntradaController extends HttpServlet {
 
 		FornecedorDAO frnDAO = new FornecedorDAO();
 		Fornecedor frnd = frnDAO.buscar(codForn);
-		Entrada ent = new Entrada(codForn, dataEntrada, horaEntrada, numeroNF, valorNF, prods, frnd, usr);
+		Entrada ent = new Entrada(cod, dataEntrada, horaEntrada, numeroNF, valorNF, prods, frnd, usr);
 		EntradaDAO entDAO = new EntradaDAO();
 		entDAO.salvar(ent);
 		response.sendRedirect("entcontroller.do?acao=lst");

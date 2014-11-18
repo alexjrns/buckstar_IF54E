@@ -79,15 +79,7 @@ public class UsuarioComumDAO{
 		for(int i = 0; i < campos.length; i++){
 			sql += campos[i][0];
 			sql += " = ";
-			/*if(campos[i][1].contains("md5(")){
-				String vlr;
-				vlr = campos[i][1].substring(4);
-				vlr = vlr.substring(0, (vlr.length()-1));
-				vlr = "md5('" + vlr;
-				vlr += "')";
-				sql += vlr;
-			}else*/
-				sql += "'" + campos[i][1] + "'";
+			sql += "'" + campos[i][1] + "'";
 			if(i != (campos.length -1))
 				sql += ", ";
 		}
@@ -118,7 +110,7 @@ public class UsuarioComumDAO{
 	}
 
 	public ArrayList<String> buscarTodos(String[] campos, String tabela){
-		String sql = "SELECT "; //id_usuario, cod_usuario, des_nome, val_login, val_senha FROM usuario ORDER BY cod_usuario ASC;";
+		String sql = "SELECT ";
 		for(int i = 0; i < campos.length; i++){
 			sql += campos[i];
 			if(i != (campos.length -1))
@@ -150,6 +142,7 @@ public class UsuarioComumDAO{
 			PreparedStatement preparador = con.prepareStatement(sql);
 			ResultSet resultado = preparador.executeQuery();
 			resultado.next();
+			prod.setChave(resultado.getInt("id_produto"));
 			prod.setCodigo(resultado.getInt("cod_produto"));
 			prod.setNome(resultado.getString("des_nome"));
 			
@@ -193,6 +186,7 @@ public class UsuarioComumDAO{
 			ResultSet resultado = preparador.executeQuery();
 			while(resultado.next()){
 				Produto prod = new Produto();
+				prod.setChave(resultado.getInt("id_produto"));
 				prod.setCodigo(resultado.getInt("cod_produto"));
 				prod.setNome(resultado.getString("des_nome"));
 				
@@ -228,6 +222,217 @@ public class UsuarioComumDAO{
 		}
 		return lista;
 	}
+
+	public Fornecedor buscarFornecedor(int id){
+		String sql = "SELECT fornecedor.id_fornecedor, fornecedor.cod_fornecedor, fornecedor.des_razaosocial, fornecedor.des_nomefantasia, fornecedor.val_cnpj, fornecedor.val_ie, fornecedor.end_logradouro, fornecedor.end_numero, fornecedor.end_complemento, fornecedor.end_cep, fornecedor.end_cidade, fornecedor.end_estado, fornecedor.val_telefone, fornecedor.val_email, fornecedor.val_site, fornecedor.dat_cadastro, fornecedor.opt_desativado FROM public.fornecedor WHERE (cod_fornecedor = ?);";
+		Fornecedor forn = new Fornecedor();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setInt(1, id);
+
+			ResultSet resultado = preparador.executeQuery();
+			if (resultado.next()){		
+				forn.setChave(resultado.getInt("id_fornecedor"));
+				forn.setCodigo(resultado.getInt("cod_fornecedor"));
+				forn.setRazaoSocial(resultado.getString("des_razaosocial"));
+				forn.setCNPJ(resultado.getString("val_cnpj"));
+				forn.setNomeFantasia(resultado.getString("des_nomefantasia"));
+				forn.setInscricaoEstadual(resultado.getString("val_ie"));
+				forn.setLogradouro(resultado.getString("end_logradouro"));
+				forn.setNumero(resultado.getString("end_numero"));
+				forn.setComplemento(resultado.getString("end_complemento"));
+				forn.setCEP(resultado.getString("end_cep"));
+				forn.setCidade(resultado.getString("end_cidade"));
+				forn.setEstado(resultado.getString("end_estado"));
+				forn.setTelefone(resultado.getString("val_telefone"));
+				forn.seteMail(resultado.getString("val_email"));
+				forn.setSite(resultado.getString("val_site"));			
+				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_cadastro").getTime());
+				
+				java.util.Date dtFinal = new java.util.Date(data.getTime()); 
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(dtFinal);
+				forn.setDataDeCadastro(cal);
+				
+				if(resultado.getString("opt_desativado").equals("Sim"))
+					forn.setDesativado(true);	
+				else if(resultado.getString("opt_desativado").equals("Nao"))
+					forn.setDesativado(false);
+			}
+			
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return forn;
+	}
+
+	public Fornecedor buscarFornecedorCh(int chave){
+		String sql = "SELECT fornecedor.id_fornecedor, fornecedor.cod_fornecedor, fornecedor.des_razaosocial, fornecedor.des_nomefantasia, fornecedor.val_cnpj, fornecedor.val_ie, fornecedor.end_logradouro, fornecedor.end_numero, fornecedor.end_complemento, fornecedor.end_cep, fornecedor.end_cidade, fornecedor.end_estado, fornecedor.val_telefone, fornecedor.val_email, fornecedor.val_site, fornecedor.dat_cadastro, fornecedor.opt_desativado FROM public.fornecedor WHERE (id_fornecedor = ?);";
+		Fornecedor forn = new Fornecedor();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setInt(1, chave);
+
+			ResultSet resultado = preparador.executeQuery();
+			if (resultado.next()){		
+				forn.setChave(resultado.getInt("id_fornecedor"));
+				forn.setCodigo(resultado.getInt("cod_fornecedor"));
+				forn.setRazaoSocial(resultado.getString("des_razaosocial"));
+				forn.setCNPJ(resultado.getString("val_cnpj"));
+				forn.setNomeFantasia(resultado.getString("des_nomefantasia"));
+				forn.setInscricaoEstadual(resultado.getString("val_ie"));
+				forn.setLogradouro(resultado.getString("end_logradouro"));
+				forn.setNumero(resultado.getString("end_numero"));
+				forn.setComplemento(resultado.getString("end_complemento"));
+				forn.setCEP(resultado.getString("end_cep"));
+				forn.setCidade(resultado.getString("end_cidade"));
+				forn.setEstado(resultado.getString("end_estado"));
+				forn.setTelefone(resultado.getString("val_telefone"));
+				forn.seteMail(resultado.getString("val_email"));
+				forn.setSite(resultado.getString("val_site"));			
+				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_cadastro").getTime());
+				
+				java.util.Date dtFinal = new java.util.Date(data.getTime()); 
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(dtFinal);
+				forn.setDataDeCadastro(cal);
+				
+				if(resultado.getString("opt_desativado").equals("Sim"))
+					forn.setDesativado(true);	
+				else if(resultado.getString("opt_desativado").equals("Nao"))
+					forn.setDesativado(false);
+			}
+			
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return forn;
+	}	
+	
+	public List<Fornecedor> buscarTodosFornecedor(){
+		String sql = "SELECT fornecedor.id_fornecedor, fornecedor.cod_fornecedor, fornecedor.des_razaosocial, fornecedor.des_nomefantasia, fornecedor.val_cnpj, fornecedor.val_ie, fornecedor.end_logradouro, fornecedor.end_numero, fornecedor.end_complemento, fornecedor.end_cep, fornecedor.end_cidade, fornecedor.end_estado, fornecedor.val_telefone, fornecedor.val_email, fornecedor.val_site, fornecedor.dat_cadastro, fornecedor.opt_desativado FROM public.fornecedor;";
+		List<Fornecedor> lista = new ArrayList<Fornecedor>();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+
+			ResultSet resultado = preparador.executeQuery();
+			while(resultado.next()){
+				Fornecedor forn = new Fornecedor();
+				forn.setChave(resultado.getInt("id_fornecedor"));
+				forn.setCodigo(resultado.getInt("cod_fornecedor"));
+				forn.setRazaoSocial(resultado.getString("des_razaosocial"));
+				forn.setCNPJ(resultado.getString("val_cnpj"));
+				forn.setNomeFantasia(resultado.getString("des_nomefantasia"));
+				forn.setInscricaoEstadual(resultado.getString("val_ie"));
+				forn.setLogradouro(resultado.getString("end_logradouro"));
+				forn.setNumero(resultado.getString("end_numero"));
+				forn.setComplemento(resultado.getString("end_complemento"));
+				forn.setCEP(resultado.getString("end_cep"));
+				forn.setCidade(resultado.getString("end_cidade"));
+				forn.setEstado(resultado.getString("end_estado"));
+				forn.setTelefone(resultado.getString("val_telefone"));
+				forn.seteMail(resultado.getString("val_email"));
+				forn.setSite(resultado.getString("val_site"));
+				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_cadastro").getTime());
+				
+				java.util.Date dtFinal = new java.util.Date(data.getTime()); 
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(dtFinal);
+				forn.setDataDeCadastro(cal);
+
+				if(resultado.getString("opt_desativado").equals("Sim"))
+					forn.setDesativado(true);	
+				else if(resultado.getString("opt_desativado").equals("Nao"))
+					forn.setDesativado(false);
+
+				lista.add(forn);
+			}
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return lista;
+	}
+	
+	public List<Fornecedor> buscarTodosFornecedor(String nome){
+		String sql = "SELECT fornecedor.id_fornecedor, fornecedor.cod_fornecedor, fornecedor.des_razaosocial, fornecedor.des_nomefantasia, fornecedor.val_cnpj, fornecedor.val_ie, fornecedor.end_logradouro, fornecedor.end_numero, fornecedor.end_complemento, fornecedor.end_cep, fornecedor.end_cidade, fornecedor.end_estado, fornecedor.val_telefone, fornecedor.val_email, fornecedor.val_site, fornecedor.dat_cadastro, fornecedor.opt_desativado FROM public.fornecedor WHERE (des_razaosocial LIKE ?);";
+		List<Fornecedor> lista = new ArrayList<Fornecedor>();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setString(1, "%" + nome + "%");
+			ResultSet resultado = preparador.executeQuery();
+			while(resultado.next()){
+				Fornecedor forn = new Fornecedor();
+				forn.setChave(resultado.getInt("id_fornecedor"));
+				forn.setCodigo(resultado.getInt("cod_fornecedor"));
+				forn.setRazaoSocial(resultado.getString("des_razaosocial"));
+				forn.setCNPJ(resultado.getString("val_cnpj"));
+				forn.setNomeFantasia(resultado.getString("des_nomefantasia"));
+				forn.setInscricaoEstadual(resultado.getString("val_ie"));
+				forn.setLogradouro(resultado.getString("end_logradouro"));
+				forn.setNumero(resultado.getString("end_numero"));
+				forn.setComplemento(resultado.getString("end_complemento"));
+				forn.setCEP(resultado.getString("end_cep"));
+				forn.setCidade(resultado.getString("end_cidade"));
+				forn.setEstado(resultado.getString("end_estado"));
+				forn.setTelefone(resultado.getString("val_telefone"));
+				forn.seteMail(resultado.getString("val_email"));
+				forn.setSite(resultado.getString("val_site"));	
+				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_cadastro").getTime());
+				
+				java.util.Date dtFinal = new java.util.Date(data.getTime()); 
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(dtFinal);
+				forn.setDataDeCadastro(cal);
+
+				if(resultado.getString("opt_desativado").equals("Sim"))
+					forn.setDesativado(true);	
+				else if(resultado.getString("opt_desativado").equals("Nao"))
+					forn.setDesativado(false);
+				lista.add(forn);
+			}
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return lista;
+	}
+	
+	public Entrada buscarEntrada(int codigo){
+		String sql = "SELECT entrada.id_entrada, entrada.cod_entrada, entrada.dat_entrada, entrada.tim_entrada, entrada.val_numeronfe, entrada.val_precopago, entrada.fk_fornecedor, entrada.fk_usuario FROM entrada WHERE entrada.cod_entrada = ?;";
+		Entrada ent = new Entrada();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setInt(1, codigo);
+			
+			ResultSet resultado = preparador.executeQuery();
+			resultado.next();
+			//ent.setChave(resultado.getInt("id_fornecedor"));
+			ent.setId(resultado.getInt("cod_entrada"));
+			
+			java.sql.Date dataEntrada = new java.sql.Date(resultado.getDate("dat_entrada").getTime());
+			java.util.Date dtFinalEnt = new java.util.Date(dataEntrada.getTime());
+			Calendar calEnt = Calendar.getInstance();
+			calEnt.setTime(dtFinalEnt);
+			ent.setDataEntrada(calEnt);
+
+			java.sql.Timestamp horaEntrada = new java.sql.Timestamp(resultado.getTimestamp("tim_entrada").getTime());
+			java.util.Date hrFinalEnt = new java.util.Date(horaEntrada.getTime());
+			Calendar calEntTim = Calendar.getInstance();
+			calEntTim.setTime(hrFinalEnt);
+			ent.setHoraEntrada(calEntTim);
+			ent.setNumeroNF(resultado.getString("val_numeronfe"));
+			ent.setValor(resultado.getDouble("val_precopago"));
+			ent.setFornecedor(this.buscarFornecedorCh(resultado.getInt("fk_fornecedor")));
+			ent.setUsuario(new Usuario(resultado.getInt("fk_usuario")));
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return ent;
+	}	
 	
 	public List<Entrada> buscarTodosEntrada(){
 		String sql = "SELECT entrada.id_entrada, entrada.cod_entrada, entrada.dat_entrada, entrada.tim_entrada, entrada.val_numeronfe, entrada.val_precopago, entrada.fk_fornecedor, entrada.fk_usuario FROM entrada;";
@@ -246,15 +451,14 @@ public class UsuarioComumDAO{
 				Calendar calEnt = Calendar.getInstance();
 				calEnt.setTime(dtFinalEnt);
 				ent.setDataEntrada(calEnt);
-
-				java.sql.Date horaEntrada = new java.sql.Date(resultado.getDate("tim_entrada").getTime());
-				java.util.Date hrFinalEnt = new java.util.Date(horaEntrada.getTime()); 
+				java.sql.Timestamp horaEntrada = new java.sql.Timestamp(resultado.getTimestamp("tim_entrada").getTime());
+				java.util.Date hrFinalEnt = new java.util.Date(horaEntrada.getTime());
 				Calendar calEntTim = Calendar.getInstance();
 				calEntTim.setTime(hrFinalEnt);
 				ent.setHoraEntrada(calEntTim);
 				ent.setNumeroNF(resultado.getString("val_numeronfe"));
 				ent.setValor(resultado.getDouble("val_precopago"));
-				ent.setFornecedor(new Fornecedor(resultado.getInt("fk_fornecedor")));
+				ent.setFornecedor(this.buscarFornecedorCh(resultado.getInt("fk_fornecedor")));
 				ent.setUsuario(new Usuario(resultado.getInt("fk_usuario")));
 
 				lista.add(ent);

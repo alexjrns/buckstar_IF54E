@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.myhomeinfo.entidades.Excecoes;
 import com.myhomeinfo.entidades.Utilitario;
 
 public class Conexao {
@@ -10,7 +11,7 @@ public class Conexao {
 	private static String servidor = "";
 	private static String porta = "";
 	private static String banco = "";
-	
+
 	private static String caminho = "";
 	private static String usuario = "";
 	private static String senha = "";
@@ -18,10 +19,10 @@ public class Conexao {
 	public static Connection getConnection(){
 		Connection con = null;
 		try{
-			try {
+			try{
 				Class.forName("org.postgresql.Driver");
-			} catch (ClassNotFoundException e) {
-				System.out.println("Driver JDBC nao encontrado\n" + e.getMessage());
+			} catch (ClassNotFoundException e){
+				Excecoes.erro(e);
 			}
 
 			String localXML = "D:/git_hub/BuckStar_IF54E/implementacao/BuckStar/WebContent/WEB-INF/config/conf.xml";

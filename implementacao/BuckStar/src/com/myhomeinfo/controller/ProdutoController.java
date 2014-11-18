@@ -24,7 +24,6 @@ public class ProdutoController extends HttpServlet {
 
     public ProdutoController() {
         super();
-
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -120,7 +119,7 @@ public class ProdutoController extends HttpServlet {
 		if((codigoUltimoFornecedor != null) && (codigoUltimoFornecedor != "0") && (codigoUltimoFornecedor != ""))
 			codFor = Integer.parseInt(codigoUltimoFornecedor);
 
-		Produto rep = new Produto(cod, nome, marca, dataUltimaCompra, unidadeCompra, unidadeTransmissao, descricaoUso, quantidadeAtual, quantidadeRecomendada, quantidadeMinima, codigoBarras, valorMedioCompra, desativado, codFor);
+		Produto rep = new Produto(0, cod, nome, marca, dataUltimaCompra, unidadeCompra, unidadeTransmissao, descricaoUso, quantidadeAtual, quantidadeRecomendada, quantidadeMinima, codigoBarras, valorMedioCompra, desativado, codFor);
 		ProdutoDAO repDAO = new ProdutoDAO();
 		repDAO.salvar(rep);
 		response.sendRedirect("prodcontroller.do?acao=lst");

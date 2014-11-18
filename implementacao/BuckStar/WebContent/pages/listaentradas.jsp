@@ -23,13 +23,16 @@
 					<table class="table table-striped table-hover table-condensed">
 						<thead>
 							<tr class="titulo">
-								<th>Código</th><th>Numero NF</th><th>Ação</th>
+								<th>Código</th><th>Data da entrada</th><th>Hora da entrada</th><th>Numero NF</th><th>Valor total da NF</th><th>Ação</th>
 							</tr>
 						</thead>
 						<c:forEach items="${requestScope.lista}" var="u">
 							<tr>
 								<td>${u.id}</td>
+								<td>${u.getDataEntradaFormatada()}</td>
+								<td>${u.getHoraEntradaFormatada()}</td>
 								<td>${u.numeroNF}</td>
+								<td>${u.valor}</td>
 								<td>
 									<script>var cod = ${u.id}</script>
 									<a href="entcontroller.do?acao=edt&cdg=${u.id}"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span></button></a>
