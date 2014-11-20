@@ -162,6 +162,10 @@ public class EntradaDAO {
 		}
 	}
 	
+	public boolean remover(Entrada entrada){
+		return usuDAO.remover("entrada", "entrada.cod_entrada = " + entrada.getId());
+	}
+	
 	public List<Entrada> buscarTodos(){
 		return usuDAO.buscarTodosEntrada();
 	}

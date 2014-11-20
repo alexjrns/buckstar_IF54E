@@ -5,7 +5,8 @@ import java.util.List;
 import com.myhomeinfo.entidades.Produto;
 
 public class ProdutoDAO {
-
+	private UsuarioComumDAO usuDAO = new UsuarioComumDAO();
+	
 	public ProdutoDAO() {
 		super();
 	}
@@ -52,17 +53,14 @@ public class ProdutoDAO {
 		String[][] vet = { {"cod_produto", codigo}, {"des_nome", nome}, {"des_marca", marca}, {"dat_ultimacompra", dataUltimaCompra}, {"des_unidadecompra", unidadeCompra},
 				{"des_unidadetransmissao", unidadeTransmissao}, {"des_descricaouso", descricaoUso}, {"val_quantidadeatual", quantidadeAtual}, {"val_quantidaderecomendada", quantidadeRecomendada},
 				{"val_quantidademinima", quantidadeMinima}, {"val_codigobarras", codigoBarras}, {"val_valormediocompra", valorMedioCompra}, {"opt_desativado", desativado} }; 
-		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		return usuDAO.alterar("produto", vet);
 	}
 	
 	public boolean remover(Produto produto){
-		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		return (usuDAO.remover("produto", "produto.cod_produto = " + produto.getCodigo()))? true: false;
 	}
 	
 	public boolean salvar(Produto produto){
-		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		int codg = usuDAO.codAtual("produto");		
 		if((produto.getCodigo() != 0) && (produto.getCodigo() < codg))
 			return alterar(produto);
@@ -71,28 +69,22 @@ public class ProdutoDAO {
 	}
 	
 	public List<Produto> buscarTodos(){
-		UsuarioComumDAO usu = new UsuarioComumDAO();
-		return usu.buscarTodosProdutos();
+		return usuDAO.buscarTodosProdutos();
 	}
 
 	public List<Produto> buscarTodosFalta(){
-		UsuarioComumDAO usu = new UsuarioComumDAO();
-		return usu.buscarTodosProdutosFalta();
+		return usuDAO.buscarTodosProdutosFalta();
 	}
 
 	public List<Produto> buscarTodosAbaixo(){
-		UsuarioComumDAO usu = new UsuarioComumDAO();
-		return usu.buscarTodosProdutosAbaixo();
+		return usuDAO.buscarTodosProdutosAbaixo();
 	}	
 
 	public List<Produto> buscarTodosNormais(){
-		UsuarioComumDAO usu = new UsuarioComumDAO();
-		return usu.buscarTodosProdutosNormais();
+		return usuDAO.buscarTodosProdutosNormais();
 	}	
 		
 	public Produto buscar(int id){
-		UsuarioComumDAO usu = new UsuarioComumDAO();
-		return usu.buscarProduto(id);
+		return usuDAO.buscarProduto(id);
 	}
-
 }

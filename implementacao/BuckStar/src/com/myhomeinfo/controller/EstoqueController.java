@@ -22,10 +22,8 @@ public class EstoqueController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String acao = request.getParameter("acao");
 
 		ProdutoDAO proDAO = new ProdutoDAO();
-		//if((acao != null) && (acao.equals("lst"))){
 			List<Produto> lstFalta = proDAO.buscarTodosFalta();
 			request.setAttribute("listaFalta", lstFalta);
 			List<Produto> lstAbaixo = proDAO.buscarTodosAbaixo();
@@ -34,7 +32,6 @@ public class EstoqueController extends HttpServlet {
 			request.setAttribute("listaNormais", lstNormais);
 			RequestDispatcher saida = request.getRequestDispatcher("pages/listaestoque.jsp");
 			saida.forward(request, response); 
-		//}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

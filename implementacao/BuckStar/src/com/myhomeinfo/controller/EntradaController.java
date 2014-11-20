@@ -38,7 +38,7 @@ public class EntradaController extends HttpServlet {
 		if((acao != null) && (acao.equals("exc"))){
 			int codigo = Integer.parseInt(request.getParameter("cdg"));
 			Entrada ent = new Entrada(codigo);
-			//entDAO.remover(ent);	
+			entDAO.remover(ent);	
 			response.sendRedirect("entcontroller.do?acao=lst");
 		}else if((acao != null) && (acao.equals("edt"))){
 			List<Produto> prods = usu.buscarTodosProdutos();

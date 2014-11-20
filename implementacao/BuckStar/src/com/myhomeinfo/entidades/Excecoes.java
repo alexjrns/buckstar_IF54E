@@ -1,6 +1,7 @@
 package com.myhomeinfo.entidades;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -61,4 +62,8 @@ public class Excecoes {
 		e.printStackTrace();
 	}
 	
+	public static void erro(SQLException e){
+		System.out.println("Ocorreu uma exceção na consulta SQL\n" + e.getMessage());
+		e.printStackTrace();		
+	}
 }

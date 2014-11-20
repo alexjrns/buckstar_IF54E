@@ -33,15 +33,17 @@
 				</div>
 		    </div>
 		    <div class="item">
-		      <img src="..." alt="...">
+		      <img src="img/estoque.png" alt="Estoque" class="img_carrousel">
 		      <div class="carousel-caption">
-		        ...
+					<h3>Gerencie seu <b>estoque</b></h3>
+					<p>Gerencie seu estoque de forma simples e efetiva, comece agora mesmo clicando no menu acima "Movimentação".</p>
 		      </div>
 		    </div>
 		    <div class="item">
-		      <img src="..." alt="...">
+		      <img src="img/valor.png" alt="Valores" class="img_carrousel">
 		      <div class="carousel-caption">
-		        ...
+					<h3>Tenha uma base histórica dos valores pagos em seus <b>Produtos</b></h3>
+					<p>Com o BuckStar você consegue saber qual o histórico de valores pagos para cada determinado produto.</p>
 		      </div>
 		    </div>		    
 		  </div>

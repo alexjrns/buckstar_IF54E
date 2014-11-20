@@ -42,7 +42,7 @@
 				<li><a href="forncontroller.do?acao=lst">Listar</a></li>
 
                 <li class="divider"></li>
-              	
+
               	<li class="dropdown-header">Produtos</li>
 				<li><a href="prodcontroller.do?acao=cad">Cadastrar</a></li>
 				<li><a href="prodcontroller.do?acao=lst">Listar</a></li>
@@ -63,23 +63,12 @@
                 <li><a href="estcontroller.do?acao=lst">Gerenciar estoque</a></li>
               </ul>
             </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-				<li><a href="#">Usuários</a></li>
-				<li><a href="#">Representantes</a></li>
-				<li><a href="#">Clientes</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Propostas Comerciais</a></li>
-              </ul>
-            </li>
-
+<!-- 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
               	<li class="dropdown-header">Cadastros</li>
-				<li><a href="#">Usuários Excluídos</a></li>
+				<li><a href="#">Usuários Alterados</a></li>
 				<li><a href="#">Fornecedores Alterados</a></li>
 				<li><a href="#">Produtos Alterados</a></li>
                 <li class="divider"></li>
@@ -88,7 +77,7 @@
                 <li><a href="#">Saídas Alteradas</a></li>
               </ul>
             </li>
-
+ -->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ajuda <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -139,7 +128,7 @@
 	        </p>
 	      </div>
 	      <div class="modal-footer">
-	        <a href="http://www.google.com" target="_blank"><button type="button" class="btn btn-default" data-dismiss="modal">Visitar site</button></a>
+	        <a href="http://www.site.com" target="_blank"><button type="button" class="btn btn-default" data-dismiss="modal">Visitar site</button></a>
 	        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
 	      </div>
 	    </div>

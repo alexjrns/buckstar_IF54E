@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.myhomeinfo.entidades.Entrada;
+import com.myhomeinfo.entidades.Excecoes;
 import com.myhomeinfo.entidades.Fornecedor;
 import com.myhomeinfo.entidades.Produto;
 import com.myhomeinfo.entidades.Saida;
@@ -30,7 +31,7 @@ public class UsuarioComumDAO{
 		}		
 	}
 	
-	private ResultSet executaComandoRetorno(String comando){
+	public ResultSet executaComandoRetorno(String comando){
 		try{
 			PreparedStatement preparador = con.prepareStatement(comando);
 			return preparador.executeQuery();
