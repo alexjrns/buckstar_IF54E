@@ -70,7 +70,6 @@ public class EntradaController extends HttpServlet {
 		}
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String  codigo = request.getParameter("txtcodigo");
 		String dtEntrada = request.getParameter("txtdataentrada");
@@ -81,7 +80,7 @@ public class EntradaController extends HttpServlet {
 		Double valorNF = Double.parseDouble(vlNF);
 		String codFornecedor = request.getParameter("txtfornecedor");
 		String cdgProd = request.getParameter("txtprodutos");
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar dataEntrada = Calendar.getInstance();
 		try{
@@ -89,15 +88,15 @@ public class EntradaController extends HttpServlet {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		Calendar horaEntrada = Calendar.getInstance();
 		try{
 			horaEntrada.setTime(shf.parse(hrEntrada));
 		}catch(Exception e){
 			e.printStackTrace();
-		}		
-		
+		}
+
 		int cod = 0;
 		if((codigo != null) && (codigo != "0") && (codigo != ""))
 			cod = Integer.parseInt(codigo);
@@ -110,22 +109,22 @@ public class EntradaController extends HttpServlet {
 		Produto prd = new Produto(codProduto);
 		Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
 		Double valor = Double.parseDouble(request.getParameter("valor"));
-		
+
 		ProdutoEntrada prodEntrada = new ProdutoEntrada(codProduto, entrada, prd, quantidade, valor);
 		prodEntrada.setProd(prd);
 		prodEntrada.setEntrada(entrada);
 		ProdutoEntrada[] prods = new ProdutoEntrada[1];
 		prods[0] = prodEntrada;
-		
+
 		Usuario usr = new Usuario(1);
-		
+
 		int codForn = 0;
 		if((codFornecedor != null) && (codFornecedor != "0") && (codFornecedor != ""))
-			codForn = Integer.parseInt(codFornecedor);		
+			codForn = Integer.parseInt(codFornecedor);
 
 		FornecedorDAO frnDAO = new FornecedorDAO();
 		Fornecedor frnd = frnDAO.buscar(codForn);
-		Entrada ent = new Entrada(cod, dataEntrada, horaEntrada, numeroNF, valorNF, prods, frnd, usr);
+		Entrada ent = new Entrada(0, cod, dataEntrada, horaEntrada, numeroNF, valorNF, prods, frnd, usr);
 		EntradaDAO entDAO = new EntradaDAO();
 		entDAO.salvar(ent);
 		response.sendRedirect("entcontroller.do?acao=lst");

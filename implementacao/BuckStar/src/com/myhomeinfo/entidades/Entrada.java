@@ -8,6 +8,7 @@ public class Entrada {
 	
 	//Privates
 	private int id;
+	private int chave;
 	private Calendar dataEntrada;
 	private Calendar horaEntrada;
 	private String numeroNF;
@@ -22,6 +23,7 @@ public class Entrada {
 	public Entrada() {
 		super();
 		this.id = 0;
+		this.chave = 0;
 		this.dataEntrada = null;
 		this.horaEntrada = null;
 		this.numeroNF = "";
@@ -32,8 +34,9 @@ public class Entrada {
 	}
 
 	//Completo
-	public Entrada(int id, Calendar dataEntrada, Calendar horaEntrada, String numeroNF, Double valor, ProdutoEntrada[] produtos, Fornecedor fornecedor, Usuario usuario) {
+	public Entrada(int chave, int id, Calendar dataEntrada, Calendar horaEntrada, String numeroNF, Double valor, ProdutoEntrada[] produtos, Fornecedor fornecedor, Usuario usuario) {
 		super();
+		this.chave = chave;
 		this.id = id;
 		this.dataEntrada = dataEntrada;
 		this.horaEntrada = horaEntrada;
@@ -73,6 +76,10 @@ public class Entrada {
 	/* Métodos públicos */
 	
 	/* GETs */
+	public int getChave() {
+		return chave;
+	}	
+	
 	public int getId() {
 		return id;
 	}
@@ -124,6 +131,10 @@ public class Entrada {
 	}
 	
 	/* SETs */	
+	public void setChave(int chave) {
+		this.chave = chave;
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}

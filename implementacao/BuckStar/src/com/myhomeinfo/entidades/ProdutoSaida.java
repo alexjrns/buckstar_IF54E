@@ -36,6 +36,14 @@ public class ProdutoSaida {
 	public Produto getProduto() {
 		return produto;
 	}
+	
+	public int getCodProduto(){
+		return produto.getCodigo();
+	}
+	
+	public int getCodSaida(){
+		return saida.getId();
+	}
 
 	public double getQuantidade() {
 		return quantidade;

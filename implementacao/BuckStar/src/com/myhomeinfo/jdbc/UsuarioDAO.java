@@ -11,6 +11,8 @@ import com.myhomeinfo.entidades.Utilitario;
 
 public class UsuarioDAO {
 	private Connection con = Conexao.getConnection();
+	private UsuarioComumDAO usuDAO = new UsuarioComumDAO();
+	
 	
 	public UsuarioDAO() {
 	}
@@ -31,9 +33,8 @@ public class UsuarioDAO {
 		String senha =  usuario.getSenha();
 		
 		String[][] vet = { {"id_usuario", ""}, {"cod_usuario", ""}, {"des_nome", nome}, {"val_login", login} , {"val_senha", Utilitario.md5(senha)} }; 
-		UsuarioComumDAO dao = new UsuarioComumDAO();
 
-		return dao.cadastrar("usuario", vet);
+		return usuDAO.cadastrar("usuario", vet);
 	}
 	
 	/**
@@ -42,7 +43,6 @@ public class UsuarioDAO {
 	 * @return Verdadeiro ser for inserido/cadastrado com sucesso e False caso não consiga realizar a inserção/atualização.
 	 */	
 	public boolean salvar(Usuario usuario){
-		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		int codg = usuDAO.codAtual("usuario");		
 		if((usuario.getCodigo() != 0) && (usuario.getCodigo() < codg))
 			return alterar(usuario);
@@ -58,7 +58,6 @@ public class UsuarioDAO {
 		
 		//String[][] vet = { {"cod_usuario", codigo}, {"des_nome", nome}, {"val_login", login} , {"val_senha", ("md5(" + senha + ")")} };
 		String[][] vet = { {"cod_usuario", codigo}, {"des_nome", nome}, {"val_login", login} , {"val_senha", Utilitario.md5(senha)} };
-		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		return usuDAO.alterar("usuario", vet);
 	}
 	
@@ -68,52 +67,15 @@ public class UsuarioDAO {
 	 * @return Verdadeiro ser for removido com sucesso e False caso não consiga remover.
 	 */
 	public boolean remover(Usuario usuario){
-		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 		return (usuDAO.remover("usuario", "usuario.cod_usuario = " + usuario.getCodigo()))? true: false;
 	}
 	
 	public List<Usuario> buscarTodos(){
-		String sql = "SELECT id_usuario, cod_usuario, des_nome, val_login, val_senha FROM usuario ORDER BY cod_usuario ASC;";
-		List<Usuario> lista = new ArrayList<Usuario>();
-		try {
-			PreparedStatement preparador = con.prepareStatement(sql);
-
-			ResultSet resultado = preparador.executeQuery();
-			while(resultado.next()){
-				Usuario usu = new Usuario();
-				usu.setCodigo(resultado.getInt("cod_usuario"));
-				usu.setNome(resultado.getString("des_nome"));
-				usu.setLogin(resultado.getString("val_login"));
-				usu.setSenha(resultado.getString("val_senha"));
-				lista.add(usu);
-			}
-			preparador.close();
-		} catch (SQLException e) {
-			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
-		}
-		return lista;
+		return usuDAO.buscarUsuarioTodos();
 	}
 	
 	public Usuario buscar(int id){
-		String sql = "SELECT id_usuario, cod_usuario, des_nome, val_login, val_senha FROM usuario WHERE (usuario.cod_usuario = ?) ORDER BY cod_usuario ASC;";
-		Usuario usr = new Usuario();
-		try {
-			PreparedStatement preparador = con.prepareStatement(sql);
-			preparador.setInt(1, id);
-			
-			ResultSet resultado = preparador.executeQuery();
-			resultado.next();
-			
-			usr.setCodigo(resultado.getInt("cod_usuario"));
-			usr.setNome(resultado.getString("des_nome"));
-			usr.setLogin(resultado.getString("val_login"));
-			usr.setSenha(resultado.getString("val_senha"));
-			
-			preparador.close();
-		} catch (SQLException e) {
-			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
-		}
-		return usr;
+		return usuDAO.buscarUsuario(id);
 	}
 
 	public List<Usuario> buscar(String nome){

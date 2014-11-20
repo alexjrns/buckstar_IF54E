@@ -44,3 +44,7 @@ function adicionaProduto(ele){
 	//ant.insertAdjacentHTML('beforeend', no);
 	ant.innerHTML += no;
 }
+
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+})

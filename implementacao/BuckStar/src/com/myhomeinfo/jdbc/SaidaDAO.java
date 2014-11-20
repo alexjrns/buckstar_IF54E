@@ -1,7 +1,9 @@
 package com.myhomeinfo.jdbc;
 
-import com.myhomeinfo.entidades.Entrada;
+import java.util.List;
+
 import com.myhomeinfo.entidades.Excecoes;
+import com.myhomeinfo.entidades.ProdutoSaida;
 import com.myhomeinfo.entidades.Saida;
 
 public class SaidaDAO {
@@ -14,8 +16,7 @@ public class SaidaDAO {
 	public boolean salvar(Saida saida){
 		int codg = usuDAO.codAtual("saida");		
 		if((saida.getId() != 0) && (saida.getId() < codg))
-			//return alterar(saida);
-			return false;
+			return alterar(saida);
 		else
 			return cadastrar(saida);
 	}
@@ -42,9 +43,16 @@ public class SaidaDAO {
 			Excecoes.erro(e);
 		}
 
+		String valSaida = "";
+		try{
+			valSaida = String.valueOf(saida.getValorSaida());
+		}catch(Exception e){
+			Excecoes.erro(e);
+		}
+		
 		String codEntrada = "";
 		try{
-			codEntrada = String.valueOf(saida.getEntrada().getId());
+			codEntrada = String.valueOf(saida.getEntrada().getChave());
 		}catch(Exception e){
 			Excecoes.erro(e);
 		}
@@ -55,8 +63,8 @@ public class SaidaDAO {
 			Excecoes.erro(e);
 		}
 
-		String[][] vet = { {"id_entrada", ""}, {"cod_entrada", codigo}, {"dat_entrada", dataEntrada}, {"tim_entrada", horaEntrada},
-				{"val_numeronfe", numeroNF}, {"val_precopago", valor}, {"fk_fornecedor", codFornecedor}, {"fk_usuario", codUsuario} }; 
+		String[][] vet = { {"id_saida", ""}, {"cod_saida", codigo}, {"dat_saida", dataSaida}, {"tim_saida", horaSaida},
+				{"val_saida", valSaida}, {"fk_entrada", codEntrada}, {"fk_usuario", codUsuario} }; 
 
 		usuDAO.abreTransacao();
 		if(usuDAO.cadastrar("saida", vet)){
@@ -70,5 +78,42 @@ public class SaidaDAO {
 		}else{
 			return usuDAO.rollback();
 		}
+	}
+	
+	private boolean assimilarProduto(ProdutoSaida[] prods, String codSaida) throws Exception{
+		boolean result = false;
+		ProdutoSaida[] prod = prods;
+
+		String [][] campos = new String[5][2];
+		for(int i = 0; i < prod.length; i++){
+			campos[0][0] = "id_produtossaida";
+			campos[0][1] = "";
+			campos[1][0] = "cod_produtossaida";
+			campos[1][1] = String.valueOf(prods[i].getCodigo());
+			campos[2][0] = "fk_produto";
+			campos[2][1] = String.valueOf(prods[i].getCodProduto());
+			campos[3][0] = "fk_saida";
+			campos[3][1] = codSaida;
+			campos[4][0] = "val_quantidade";
+			campos[4][1] = String.valueOf(prods[i].getQuantidade());
+			result = usuDAO.cadastrar("produtossaida", campos);
+		}
+		return result;
+	}
+
+	public List<Saida> buscarTodos(){
+		return usuDAO.buscarTodosSaida();
+	}
+
+	public Saida buscar(int codigo){
+		return usuDAO.buscarSaida(codigo);
+	}
+
+	public boolean alterar(Saida saida){
+		return false;
+	}
+
+	public boolean remover(Saida saida){
+		return false;
 	}
 }

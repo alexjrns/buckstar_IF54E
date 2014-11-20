@@ -20,7 +20,6 @@ public class Produto {
 	private String codigoBarras;
 	private double valorMedioCompra;
 	private boolean desativado;
-	private int ultimoFornecedor;
 
 	/* Construtores */	
 	public Produto() {
@@ -32,7 +31,7 @@ public class Produto {
 			String unidadeTransmissao, String descricaoUso,
 			double quantidadeAtual, double quantidadeRecomendada,
 			double quantidadeMinima, String codigoBarras,
-			double valorMedioCompra, boolean desativado, int ultimoFornecedor) {
+			double valorMedioCompra, boolean desativado) {
 		super();
 		this.chave = chave;
 		this.codigo = id;
@@ -47,7 +46,6 @@ public class Produto {
 		this.quantidadeMinima = quantidadeMinima;
 		this.codigoBarras = codigoBarras;
 		this.valorMedioCompra = valorMedioCompra;
-		this.ultimoFornecedor = ultimoFornecedor;
 		this.desativado = desativado;
 	}
 	
@@ -66,7 +64,6 @@ public class Produto {
 		this.quantidadeMinima = 0;
 		this.codigoBarras = "";
 		this.valorMedioCompra = 0;
-		this.ultimoFornecedor = 0;
 		this.desativado = false;
 	}
 
@@ -85,7 +82,6 @@ public class Produto {
 		this.quantidadeMinima = 0;
 		this.codigoBarras = "";
 		this.valorMedioCompra = 0;
-		this.ultimoFornecedor = 0;
 		this.desativado = false;
 	}	
 	
@@ -199,14 +195,6 @@ public class Produto {
 
 	public void setValorMedioCompra(double valorMedioCompra) {
 		this.valorMedioCompra = valorMedioCompra;
-	}
-
-	public int getUltimoFornecedor() {
-		return ultimoFornecedor;
-	}
-
-	public void setUltimoFornecedor(int ultimoFornecedor) {
-		this.ultimoFornecedor = ultimoFornecedor;
 	}
 
 	public String getDataFormatada(){

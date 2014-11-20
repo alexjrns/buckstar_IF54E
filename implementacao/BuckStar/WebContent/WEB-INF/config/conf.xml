@@ -3,7 +3,7 @@
 		<driver>postgresql</driver>
 		<servidor>localhost</servidor>
 		<porta>5432</porta>
-		<banco>buckstar</banco>
+		<banco>buckstardef</banco>
 		<usuario>postgres</usuario>
 		<senha>alex</senha>
 	</database>

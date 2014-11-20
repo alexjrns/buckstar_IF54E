@@ -8,11 +8,6 @@
 	
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="http://code.jquery.com/jvsp.js"></script>
-	<script>
-		$(function(){
-			$('#txtultimofornecedor').find('[value="' + '${requestScope.produto.ultimoFornecedor}' + '"]').attr('selected', true);
-		});
-	</script>
 </head>
 <body>
 	<c:import url="../includes/menu.jsp"></c:import>
@@ -51,13 +46,6 @@
   							<span class="input-group-addon">R$</span>
   							<input type="text" name="txtvalormedio" id="txtvalormedio" class="monetario" value="${requestScope.produto.valorMedioCompra}" />
 						</div>
-						<label for="txtultimofornecedor">Último fornecedor</label>
-						<!--<input type="text" name="txtultimofornecedor" id="txtultimofornecedor" value="${requestScope.produto.ultimoFornecedor}" /> -->
-						<select id="txtultimofornecedor" name="txtultimofornecedor">
-							<c:forEach items="${requestScope.listaFor}" var="u">
-								<option value="${u.chave}">${u.razaoSocial}</option>
-							</c:forEach>
-						</select>
 						<input type="checkbox" id="desativado" name="cbbdesativado" ${requestScope.produto.isDesativado()?'checked':''} class="css-checkbox" value="Sim" />
 						<label for="desativado" class="css-label combo l">Desativado</label>
 

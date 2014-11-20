@@ -24,7 +24,7 @@
 							<tr class="titulo">
 								<th>Código</th>	<th>Nome</th>	<th>Marca</th>	<th>Data da última compra</th> <th>Unidade de compra</th> <th>Unidade de transmissão</th>
 								<th>Descrição de uso</th> <th>Quantidade atual</th> <th>Quantidade recomendada</th> <th>Quantidade mínima</th> <th>Código de barras</th> <th>Valor médio de compra</th> 
-								<th>Desativado</th> <th>Código do último fornecedor</th>
+								<th>Desativado</th><th>Ação</th>
 							</tr>
 						</thead>
 						<c:forEach items="${requestScope.lista}" var="u"> 
@@ -42,7 +42,6 @@
 								<td>${u.codigoBarras}</td>
 								<td>${u.valorMedioCompra}</td>
 								<td> <c:out value="${u.desativado ? 'Sim' : 'Não'}" /> </td>
-								<td>${u.ultimoFornecedor}</td>
 								<td>
 									<a href="prodcontroller.do?acao=edt&cdg=${u.codigo}"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span></button></a>
 									<a href="javascript:confirmaExclusao(${u.codigo}, 'prodcontroller.do?acao=exc&cdg=')" ><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></a>

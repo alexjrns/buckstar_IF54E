@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/alex.css">
 	<link rel="stylesheet" type="text/css" href="css/menu-responsivo.css">
 	<script src="javascript/jvsp.js"> </script>
-	<title>Entradas lançadas</title>
+	<title>Saídas lançadas</title>
 </head>
 <body>
 	<c:import url="../includes/menu.jsp"></c:import>
@@ -15,28 +15,27 @@
 	<div class="container">	
 		<div class="panel panel-default">
 			<div class="panel-heading">
-		    	<h3 class="panel-title">Lista de entradas</h3>
+		    	<h3 class="panel-title">Lista de saídas</h3>
 		  	</div>
 		  	<div class="panel-body">
 				<div class="table-responsive tabela">
 					<table class="table table-striped table-hover table-condensed">
 						<thead>
 							<tr class="titulo">
-								<th>Código</th><th>Data da entrada</th><th>Hora da entrada</th><th>Numero NF</th><th>Valor total da NF</th><th>Fornecedor</th><th>Ação</th>
+								<th>Código</th><th>Data da saída</th><th>Hora da saída</th><th>Valor total da saída</th><th>Entrada</th><th>Ação</th>
 							</tr>
 						</thead>
 						<c:forEach items="${requestScope.lista}" var="u">
 							<tr>
 								<td>${u.id}</td>
-								<td>${u.getDataEntradaFormatada()}</td>
-								<td>${u.getHoraEntradaFormatada()}</td>
-								<td>${u.numeroNF}</td>
-								<td>${u.valor}</td>
-								<td>${u.fornecedor.razaoSocial}</td>
+								<td>${u.getDataSaidaFormatada()}</td>
+								<td>${u.getHoraSaidaFormatada()}</td>
+								<td>${u.valorSaida}</td>
+								<td>Data: ${u.entrada.getDataEntradaFormatada()} - ${u.entrada.getHoraEntradaFormatada()} | NFe: ${u.entrada.numeroNF} | Fornecedor: ${u.entrada.fornecedor.razaoSocial}</td>
 								<td>
 									<script>var cod = ${u.id}</script>
-									<a href="entcontroller.do?acao=edt&cdg=${u.id}"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span></button></a>
-									<a href="javascript:confirmaExclusao(${u.id}, 'entcontroller.do?acao=exc&cdg=')" ><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></a>
+									<a href="saicontroller.do?acao=edt&cdg=${u.id}"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span></button></a>
+									<a href="javascript:confirmaExclusao(${u.id}, 'saicontroller.do?acao=exc&cdg=')" ><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></a>
 								</td>
 							</tr>
 						</c:forEach>

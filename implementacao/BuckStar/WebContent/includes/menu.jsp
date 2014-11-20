@@ -52,13 +52,15 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentação <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-header">Entrada</li>
 				<li><a href="entcontroller.do?acao=cad">Gerar entrada</a></li>
 				<li><a href="entcontroller.do?acao=lst">Histórico de entradas</a></li>
 				<li class="divider"></li>
-				<li><a href="#">Gerar saída</a></li>
-				<li><a href="#">Histórico de saídas</a></li>
+				<li class="dropdown-header">Saída</li>
+				<li><a href="saicontroller.do?acao=cad">Gerar saída</a></li>
+				<li><a href="saicontroller.do?acao=lst">Histórico de saídas</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Ajustar estoque</a></li>
+                <li><a href="estcontroller.do?acao=lst">Gerenciar estoque</a></li>
               </ul>
             </li>
 
@@ -70,6 +72,20 @@
 				<li><a href="#">Clientes</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Propostas Comerciais</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+              	<li class="dropdown-header">Cadastros</li>
+				<li><a href="#">Usuários Excluídos</a></li>
+				<li><a href="#">Fornecedores Alterados</a></li>
+				<li><a href="#">Produtos Alterados</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Movimentações</li>
+                <li><a href="#">Entradas Alteradas</a></li>
+                <li><a href="#">Saídas Alteradas</a></li>
               </ul>
             </li>
 
@@ -87,12 +103,13 @@
 
           <ul class="nav navbar-nav navbar-right">
 	        <li>
-	        	      <form class="navbar-form navbar-right target pesquisar" role="search" action="#">
-				        <div class="form-group">
-				          <input type="search" class="form-control" placeholder="O que deseja buscar?">
-				        </div>
-				        <button type="submit" class="btn btn-danger-mn">Buscar</button>
-				      </form>
+       	      <form class="navbar-form navbar-right target pesquisar" role="search" action="#">
+		        <div class="form-group">
+		          <input type="search" class="form-control" placeholder="O que deseja buscar?">
+		        </div>
+		        <!--<button type="submit" class="btn btn-danger-mn">Buscar</button> -->
+		        	<button type="button" class="btn btn-danger-mn" onclick="alert('Desculpe, \n\nA função de busca ainda não foi implementada nessa versão :(');">Buscar</button>
+		      </form>
 	        </li>	
 			<li class="active"><a href="logincontroller.do">Sair</a></li>	
           </ul>
