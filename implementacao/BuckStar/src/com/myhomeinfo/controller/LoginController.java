@@ -33,9 +33,11 @@ public class LoginController extends HttpServlet {
 		String senha = request.getParameter("txtsenha");
 		//String lembrarUsuario = request.getParameter("cbblembrar");
 
-		Usuario usr = new Usuario(login, senha);
 		UsuarioDAO usrDAO = new UsuarioDAO();
-		if (usrDAO.autenticar(usr)){
+		
+		Usuario usr = usrDAO.autenticar(new Usuario(login, senha)); 
+		
+		if (usr != null){
 			HttpSession sessao = request.getSession();
 			sessao.setMaxInactiveInterval(3000);
 			sessao.setAttribute("usuarioLogado", usr);

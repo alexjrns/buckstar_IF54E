@@ -1,6 +1,7 @@
 package com.myhomeinfo.entidades;
 
 public class Usuario {
+	private int chave;
 	private int codigo;
 	private String nome;
 	private String login;
@@ -9,7 +10,8 @@ public class Usuario {
 	public Usuario(){	
 	}
 
-	public Usuario(int codigo, String nome, String login, String senha){
+	public Usuario(int chave, int codigo, String nome, String login, String senha){
+		this.chave = chave;
 		this.codigo = codigo;
 		this.nome = nome;
 		this.login = login;
@@ -17,6 +19,7 @@ public class Usuario {
 	}
 	
 	public Usuario(String login, String senha){
+		this.chave = -1;
 		this.codigo = -1;
 		this.nome = null;
 		this.login = login;
@@ -24,6 +27,7 @@ public class Usuario {
 	}	
 
 	public Usuario(int id){
+		this.chave = -1;
 		this.codigo = id;
 		this.nome = null;
 		this.login = null;
@@ -35,6 +39,14 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [codigo=" + codigo + ", nome=" + nome + ", login="
 				+ login + ", senha=" + senha + "]";
+	}	
+	
+	public int getChave() {
+		return chave;
+	}
+
+	public void setChave(int chave) {
+		this.chave = chave;
 	}	
 	
 	public int getCodigo() {

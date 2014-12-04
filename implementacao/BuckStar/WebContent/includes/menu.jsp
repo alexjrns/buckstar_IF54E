@@ -63,12 +63,12 @@
                 <li><a href="estcontroller.do?acao=lst">Gerenciar estoque</a></li>
               </ul>
             </li>
-<!-- 
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
               	<li class="dropdown-header">Cadastros</li>
-				<li><a href="#">Usuários Alterados</a></li>
+				<li><a href="adtusuariocontroller.do">Usuários Alterados</a></li>
 				<li><a href="#">Fornecedores Alterados</a></li>
 				<li><a href="#">Produtos Alterados</a></li>
                 <li class="divider"></li>
@@ -77,7 +77,7 @@
                 <li><a href="#">Saídas Alteradas</a></li>
               </ul>
             </li>
- -->
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ajuda <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

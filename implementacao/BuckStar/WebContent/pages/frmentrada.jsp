@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<form action="entcontroller.do" method="post" class="padrao">
 					<fieldset>
-						<label for="txtcodigo">Código</label>							
+						<label for="txtcodigo">Código</label>
 						<input type="text" name="txtcodigo" id="txtcodigo" readonly="readonly" value="${requestScope.entrada.id}" required="required" />
 						<label for="txtdataentrada">Data da entrada*</label>
 						<input type="datetime" name="txtdataentrada" id="txtdataentrada" value="${requestScope.entrada.getDataEntradaFormatada()}"  data-mask="##/##/####" />
@@ -40,6 +40,8 @@
   							<span class="input-group-addon">R$</span>
   							<input type="text" name="txtvalor" id="txtvalor" class="monetario" value="${requestScope.entrada.valor}" />
 						</div>
+						<label for="txtusuario">Usuário</label>
+						<input type="text" name="txtusuario" id="txtusuario" readonly="readonly" value="${sessionScope.usuarioLogado.nome}" data-cod="${sessionScope.usuarioLogado.chave}" />
 						<label for="txtfornecedor">Fornecedor</label>
 						<select id="txtfornecedor" name="txtfornecedor">
 								<c:forEach items="${requestScope.listaFor}" var="u">

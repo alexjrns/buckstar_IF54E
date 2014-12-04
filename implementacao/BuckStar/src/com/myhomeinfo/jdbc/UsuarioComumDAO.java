@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.homeinfo.auditoria.AuditoriaUsuario;
 import com.myhomeinfo.entidades.Entrada;
-import com.myhomeinfo.entidades.Excecoes;
 import com.myhomeinfo.entidades.Fornecedor;
 import com.myhomeinfo.entidades.Produto;
 import com.myhomeinfo.entidades.Saida;
@@ -136,6 +136,45 @@ public class UsuarioComumDAO{
 	}
 	
 	/* Temporários */
+	public List<AuditoriaUsuario> buscarTodasAuditoria(){
+		String sql = "SELECT id_histusuario, cod_usuario, des_nome, val_login, val_senha, id_usuario, des_tipoalteracao, dat_dataalteracao, tim_horaalteracao, des_usuarioalteracao FROM hist_usuario;";
+		List<AuditoriaUsuario> lista = new ArrayList<AuditoriaUsuario>();
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+
+			ResultSet resultado = preparador.executeQuery();
+			while(resultado.next()){
+				AuditoriaUsuario audUsu = new AuditoriaUsuario();
+				audUsu.setCodigo(resultado.getInt("id_histusuario"));
+				audUsu.getUsuario().setCodigo(resultado.getInt("cod_usuario"));
+				audUsu.getUsuario().setNome(resultado.getString("des_nome"));
+				audUsu.getUsuario().setLogin(resultado.getString("val_login"));
+				audUsu.getUsuario().setSenha(resultado.getString("val_senha"));
+
+				java.sql.Date data = new java.sql.Date(resultado.getDate("dat_dataalteracao").getTime());
+				java.util.Date dtFinal = new java.util.Date(data.getTime()); 
+				Calendar dataAlteracao = Calendar.getInstance();
+				dataAlteracao.setTime(dtFinal);
+				audUsu.getAuditoria().setDataAlteracao(dataAlteracao);
+
+				java.sql.Timestamp hora = new java.sql.Timestamp(resultado.getTimestamp("tim_horaalteracao").getTime());
+				java.util.Date hrFinal = new java.util.Date(hora.getTime());
+				Calendar horaAlteracao = Calendar.getInstance();
+				horaAlteracao.setTime(hrFinal);
+				audUsu.getAuditoria().setHoraAlteracao(horaAlteracao);				
+
+				audUsu.getAuditoria().setUsuarioAlteracao(resultado.getString("des_usuarioalteracao"));
+				audUsu.getAuditoria().setTipoAlteracao(resultado.getString("des_tipoalteracao"));				
+
+				lista.add(audUsu);
+			}
+			preparador.close();
+		} catch (SQLException e) {
+			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
+		}
+		return lista;
+	}
+
 	public Usuario buscarUsuario(int id){
 		String sql = "SELECT id_usuario, cod_usuario, des_nome, val_login, val_senha FROM usuario WHERE (usuario.cod_usuario = ?) ORDER BY cod_usuario ASC;";
 		Usuario usr = new Usuario();

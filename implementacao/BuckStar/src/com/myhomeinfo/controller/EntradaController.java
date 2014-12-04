@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.myhomeinfo.entidades.Entrada;
 import com.myhomeinfo.entidades.Fornecedor;
@@ -116,8 +117,9 @@ public class EntradaController extends HttpServlet {
 		ProdutoEntrada[] prods = new ProdutoEntrada[1];
 		prods[0] = prodEntrada;
 
-		Usuario usr = new Usuario(1);
-
+		HttpSession sessao = request.getSession();
+		Usuario usr = (Usuario) sessao.getAttribute("usuarioLogado");
+		
 		int codForn = 0;
 		if((codFornecedor != null) && (codFornecedor != "0") && (codFornecedor != ""))
 			codForn = Integer.parseInt(codFornecedor);

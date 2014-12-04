@@ -100,7 +100,7 @@ public class UsuarioDAO {
 		return lista;
 	}
 
-	public boolean autenticar(Usuario usr){
+	public Usuario autenticar(Usuario usr){
 		String sql = "SELECT id_usuario, cod_usuario, des_nome, val_login, val_senha FROM usuario WHERE ((val_login = ?) AND (val_senha = ?)) ORDER BY cod_usuario ASC;";
 		try{
 			PreparedStatement preparador = con.prepareStatement(sql);
@@ -109,10 +109,18 @@ public class UsuarioDAO {
 			String senha = Utilitario.md5(usr.getSenha());
 			preparador.setString(2, senha);
 			ResultSet resultado = preparador.executeQuery();
-			return (resultado.next() ? true: false);
+            if(resultado.next()){
+            	int chave = resultado.getInt("id_usuario");
+            	int id = resultado.getInt("cod_usuario");
+                String nome = resultado.getString("des_nome");
+                String lgn = resultado.getString("val_login");
+                String sen = resultado.getString("val_senha");
+
+                return new Usuario(chave, id, nome, lgn, sen);
+            }
 		} catch (SQLException e) {
 			System.out.println("Erro no comando SQL de Consulta: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
 		}
-		return false;
+		return null;
 	}
 }

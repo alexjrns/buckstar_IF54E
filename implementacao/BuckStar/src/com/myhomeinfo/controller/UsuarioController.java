@@ -42,7 +42,7 @@ public class UsuarioController extends HttpServlet {
 			//acao="lst";
 		}else if((acao != null) && (acao.equals("cad"))){
 			UsuarioComumDAO usuPer = new UsuarioComumDAO();
-			Usuario usu = new Usuario(usuPer.codAtual("usuario"), "", "", "");
+			Usuario usu = new Usuario(0, usuPer.codAtual("usuario"), "", "", "");
 			request.setAttribute("usuario", usu);
 			RequestDispatcher saida = request.getRequestDispatcher("pages/frmusuario.jsp");
 			saida.forward(request, response);
@@ -70,7 +70,7 @@ public class UsuarioController extends HttpServlet {
 			cod = Integer.parseInt(codigo);
 
 		/*Cria um usuário com os valores da Tela*/
-		Usuario usu = new Usuario(cod, nome, login, senha);
+		Usuario usu = new Usuario(0, cod, nome, login, senha);
 		UsuarioDAO usuDAO = new UsuarioDAO();
 		usuDAO.salvar(usu);
 		response.sendRedirect("usucontroller.do?acao=lst");
