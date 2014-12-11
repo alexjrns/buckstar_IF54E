@@ -17,7 +17,7 @@ import com.myhomeinfo.entidades.Usuario;
 
 public class UsuarioComumDAO{
 	private Connection con = Conexao.getConnection();
-	
+
 	private boolean executaComando(String comando){
 		try {
 			PreparedStatement preparador = con.prepareStatement(comando);
@@ -28,9 +28,9 @@ public class UsuarioComumDAO{
 		} catch (SQLException e) {
 			System.out.println("Erro no comando SQL de execucao de comando: " + e.getMessage() + "\n" + "Comando com erro: " + comando);
 			return false;
-		}		
+		}
 	}
-	
+
 	public ResultSet executaComandoRetorno(String comando){
 		try{
 			PreparedStatement preparador = con.prepareStatement(comando);
@@ -38,8 +38,8 @@ public class UsuarioComumDAO{
 		} catch (SQLException e) {
 			System.out.println("Erro no comando SQL: " + e.getMessage() + "\n" + "Comando com erro: " + comando);
 			return null;
-		}		
-	}	
+		}
+	}
 
 	public boolean abreTransacao(){
 		String sql = "BEGIN";
@@ -50,17 +50,17 @@ public class UsuarioComumDAO{
 		String sql = "COMMIT;";
 		return executaComando(sql);
 	}
-	
+
 	public boolean rollback(){
 		String sql = "ROLLBACK;";
 		return executaComando(sql);
 	}
-	
+
 	public boolean remover(String tabela, String condicao){
 		String sql = "DELETE FROM "+ tabela + " WHERE (" + condicao + ");";
 		return executaComando(sql);
 	}
-	
+
 	public int codAtual(String tabela){
 		String sql = "SELECT MAX(cod_"+ tabela +") FROM " + tabela + ";";
 			ResultSet resultado = executaComandoRetorno(sql);
@@ -71,7 +71,6 @@ public class UsuarioComumDAO{
 				System.out.println("Erro no comando SQL de obtencao codigo: " + e.getMessage() + "\n" + "Comando com erro: " + sql);
 				return 0;
 			}
-
 	}
 
 	public boolean alterar(String tabela, String[][] campos){
@@ -88,14 +87,14 @@ public class UsuarioComumDAO{
 		sql += (" WHERE (" + tabela + ".cod_" + tabela + " = " + campos[0][1] + ");"); 
 		return executaComando(sql);
 	}
-	
+
 	public boolean cadastrar(String tabela, String[][] campos){
 		String sql = "INSERT INTO " + tabela + "(";
 
 		for(int i = 0; i < campos.length; i++){
 			sql += campos[i][0];
 			if(i != (campos.length -1))
-				sql += ", "; 
+				sql += ", ";
 		}
 
 		UsuarioComumDAO usuDAO = new UsuarioComumDAO();
@@ -116,7 +115,7 @@ public class UsuarioComumDAO{
 		for(int i = 0; i < campos.length; i++){
 			sql += campos[i];
 			if(i != (campos.length -1))
-				sql += ", ";			
+				sql += ", ";
 		}
 		sql += " FROM " + tabela;
 
@@ -134,7 +133,7 @@ public class UsuarioComumDAO{
 		}
 		return vet;
 	}
-	
+
 	/* Temporários */
 	public List<AuditoriaUsuario> buscarTodasAuditoria(){
 		String sql = "SELECT id_histusuario, cod_usuario, des_nome, val_login, val_senha, id_usuario, des_tipoalteracao, dat_dataalteracao, tim_horaalteracao, des_usuarioalteracao FROM hist_usuario;";
