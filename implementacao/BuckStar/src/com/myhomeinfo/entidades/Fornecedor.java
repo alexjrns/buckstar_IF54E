@@ -3,6 +3,9 @@ package com.myhomeinfo.entidades;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Fornecedor {
 	/* Atributos */
 	//Private

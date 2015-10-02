@@ -1,5 +1,8 @@
 package com.myhomeinfo.entidades;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ProdutoSaida {
 	private int codigo;
 	private Saida saida;

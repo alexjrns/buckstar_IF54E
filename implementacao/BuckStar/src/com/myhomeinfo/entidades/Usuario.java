@@ -1,5 +1,8 @@
 package com.myhomeinfo.entidades;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Usuario {
 	private int chave;
 	private int codigo;

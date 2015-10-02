@@ -11,7 +11,6 @@ import java.util.List;
 import com.myhomeinfo.entidades.Fornecedor;
 
 public class FornecedorDAO {
-	private Connection con = Conexao.getConnection();
 	private UsuarioComumDAO usuDAO = new UsuarioComumDAO();
 	
 	public FornecedorDAO(){
