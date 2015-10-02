@@ -7,5 +7,5 @@ Esse projeto visa o desenvolvimento de um *software WEB* destinado ao setor de *
 ##documentação##
 Essa seção contém todos os arquivos referentes a documentação do projeto
 
-##implementação##
-Essa seção contém todos os arquivos de código fonte, do projeto
+##Outras informações##
+Linguagens de programação: Java, Javascript
